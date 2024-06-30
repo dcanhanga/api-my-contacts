@@ -3,10 +3,9 @@
 		"incremental": true,
 		"outDir": "dist",
 		"sourceMap": true,
-		"rootDirs": ["src", "tests"],
-		"baseUrl": "src",
+		"rootDirs": ["src"],
+		"baseUrl": "./src",
 		"paths": {
-			"@/tests/*": ["../tests/*"],
 			"@/*": ["*"]
 		},
 		"target": "es2022",
