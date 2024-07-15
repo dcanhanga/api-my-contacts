@@ -1,10 +1,24 @@
-import type { IHttpResponse } from '@/application/interfaces/Http.js';
-export const badRequest = (error: Error): IHttpResponse => ({
-	statusCode: 400,
-	body: error,
+import type {
+	IErrorResponse,
+	IHttpResponse,
+	IResponseData,
+} from '@/application/index.js';
+
+const successResponse = <T>(
+	data: IHttpResponse<IResponseData<T>>,
+): IHttpResponse<IResponseData<T>> => ({
+	statusCode: data.statusCode,
+	body: data.body,
 });
 
-export const conflict = (error: Error): IHttpResponse => ({
-	statusCode: 409,
-	body: error,
+const errorResponse = (
+	error: IHttpResponse<IErrorResponse>,
+): IHttpResponse<IErrorResponse> => ({
+	statusCode: error.statusCode,
+	body: error.body,
 });
+
+export const httpResponse = {
+	success: successResponse,
+	error: errorResponse,
+};

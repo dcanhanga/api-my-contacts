@@ -1,1 +1,1 @@
-export * from './categoryInput.js';
+export * from './category.dto.js';

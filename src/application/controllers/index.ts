@@ -1,1 +1,1 @@
-export * from './contacts/createCategory.js';
+export * from './create-category.controller.js'

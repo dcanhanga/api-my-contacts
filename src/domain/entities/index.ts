@@ -1,1 +1,1 @@
-export * from './contact/category.js';
+export * from './category.entity.js';

@@ -1,1 +1,1 @@
-export * from '@/domain/repositories/contact/category.repository.js';
+export * from './category.repository.interface.js';
