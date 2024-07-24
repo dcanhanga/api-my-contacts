@@ -6,3 +6,6 @@ export interface ICreateCategoryRepository {
 export interface IGetCategoryByNameRepository {
 	get(name: string): Promise<ICategory | undefined>;
 }
+export interface IGetCategoryRepository {
+	get(): Promise<ICategory[]>;
+}

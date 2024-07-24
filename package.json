@@ -7,6 +7,7 @@
 		"dev": "tsx --watch --env-file .env --inspect --no-warnings src/infra/app/server.ts",
 		"docker-up": "docker compose up -d",
 		"dev:docker": "npm run docker-up && npm run dev",
+		"migrate": "tsx --env-file .env -- scripts/run-sql.ts",
 		"prepare": "husky"
 	},
 	"type": "module",

@@ -2,8 +2,8 @@ import type { IAppError } from '../interfaces/errors.interface.js';
 import type {
 	IErrorResponse,
 	IHttpResponse,
-	IMeta,
 } from '../interfaces/http.interface.js';
+import { makeMeta } from './utils.js';
 
 const makeBodyError = (error: IAppError) => ({
 	type: error.type,
@@ -12,16 +12,11 @@ const makeBodyError = (error: IAppError) => ({
 	entity: error.entity,
 });
 
-const makeMeta = (): IMeta => ({
-	status: 'error',
-	timestamp: new Date().toISOString(),
-	message: '',
-});
 const badRequest = (error: IAppError): IHttpResponse<IErrorResponse> => ({
 	statusCode: 400,
 	body: {
 		error: makeBodyError(error),
-		meta: { ...makeMeta(), message: 'Bad Request' },
+		meta: makeMeta('error', 'Bad Request'),
 	},
 });
 
@@ -29,7 +24,7 @@ const conflictRequest = (error: IAppError): IHttpResponse<IErrorResponse> => ({
 	statusCode: 409,
 	body: {
 		error: makeBodyError(error),
-		meta: { ...makeMeta(), message: 'Conflict' },
+		meta: makeMeta('error', 'Conflict'),
 	},
 });
 
@@ -40,7 +35,7 @@ const serverError = (error: Error): IHttpResponse<IErrorResponse> => ({
 			message: 'UNEXPECTED_ERROR',
 			type: 'INTERNAL_SERVER_ERROR',
 		},
-		meta: { ...makeMeta(), message: 'Internal Server Error' },
+		meta: makeMeta('error', 'Internal Server Error'),
 	},
 });
 

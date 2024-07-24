@@ -1,1 +1,1 @@
-export * from './makeCreateCategory.js';
+export * from './make-createCategory.js';

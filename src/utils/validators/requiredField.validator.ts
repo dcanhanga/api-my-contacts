@@ -7,7 +7,7 @@ import {
 export class RequiredFieldValidator implements IValidator {
 	constructor(private readonly fieldName: string) {}
 	validate(input: IKeyValue<string>) {
-		const message = 'IS_REQUIRED';
+		const message = `${this.fieldName.toLocaleUpperCase()}_IS_REQUIRED`;
 		if (!input[this.fieldName]) {
 			throw new errors.MissingParameterError({
 				name: 'MissingParameterError',

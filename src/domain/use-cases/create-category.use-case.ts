@@ -12,9 +12,9 @@ export class CreateCategoryUseCase {
 		private readonly getCategoryByNameRepository: IGetCategoryByNameRepository,
 	) {}
 	async execute(data: ICreateCategoryDto): Promise<ICategory> {
-		const existingCategory = await this.getCategoryByNameRepository.get(
-			data.name,
-		);
+		const normalizedInput = data.name.replace(/\s+/g, '').toLowerCase();
+		const existingCategory =
+			await this.getCategoryByNameRepository.get(normalizedInput);
 		if (existingCategory) {
 			throw new AlreadyExitsError('Category');
 		}
