@@ -1,45 +1,43 @@
-import type { IAppError } from '../interfaces/errors.interface.js';
-import type {
-	IErrorResponse,
-	IHttpResponse,
-} from '../interfaces/http.interface.js';
-import { makeMeta } from './utils.js';
+import {
+	ErrorCode,
+	ErrorMessageMeta,
+	type IApiErrorResponse,
+	type IApiResponse,
+	type IAppError,
+	formatBodyError,
+	formatMeta,
+} from '@/application/index.js';
 
-const makeBodyError = (error: IAppError) => ({
-	type: error.type,
-	message: error.message,
-	fieldName: error.fieldName,
-	entity: error.entity,
-});
-
-const badRequest = (error: IAppError): IHttpResponse<IErrorResponse> => ({
+const badRequest = (error: IAppError): IApiResponse<IApiErrorResponse> => ({
 	statusCode: 400,
 	body: {
-		error: makeBodyError(error),
-		meta: makeMeta('error', 'Bad Request'),
+		error: formatBodyError(error),
+		meta: formatMeta('error', ErrorMessageMeta.BAD_REQUEST),
 	},
 });
 
-const conflictRequest = (error: IAppError): IHttpResponse<IErrorResponse> => ({
+const conflictRequest = (
+	error: IAppError,
+): IApiResponse<IApiErrorResponse> => ({
 	statusCode: 409,
 	body: {
-		error: makeBodyError(error),
-		meta: makeMeta('error', 'Conflict'),
+		error: formatBodyError(error),
+		meta: formatMeta('error', ErrorMessageMeta.CONFLICT),
 	},
 });
 
-const serverError = (error: Error): IHttpResponse<IErrorResponse> => ({
+const serverError = (error: Error): IApiResponse<IApiErrorResponse> => ({
 	statusCode: 500,
 	body: {
 		error: {
-			message: 'UNEXPECTED_ERROR',
-			type: 'INTERNAL_SERVER_ERROR',
+			message: ErrorMessageMeta.INTERNAL_SERVER_ERROR,
+			errorType: ErrorCode.INTERNAL_SERVER_ERROR,
 		},
-		meta: makeMeta('error', 'Internal Server Error'),
+		meta: formatMeta('error', ErrorMessageMeta.INTERNAL_SERVER_ERROR),
 	},
 });
 
-export const errorResponses = {
+export const ApiErrorResponses = {
 	conflictRequest,
 	badRequest,
 	serverError,

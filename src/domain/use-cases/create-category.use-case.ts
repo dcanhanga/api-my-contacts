@@ -1,11 +1,12 @@
 import { randomUUID } from 'node:crypto';
 import {
-	AlreadyExitsError,
+	DomainErrors,
 	type ICategory,
 	type ICreateCategoryDto,
 	type ICreateCategoryRepository,
 	type IGetCategoryByNameRepository,
 } from '@/domain/index.js';
+
 export class CreateCategoryUseCase {
 	constructor(
 		private readonly createCategoryRepository: ICreateCategoryRepository,
@@ -16,7 +17,7 @@ export class CreateCategoryUseCase {
 		const existingCategory =
 			await this.getCategoryByNameRepository.get(normalizedInput);
 		if (existingCategory) {
-			throw new AlreadyExitsError('Category');
+			throw new DomainErrors.AlreadyExistsError('Category');
 		}
 		const category = await this.createCategoryRepository.create({
 			id: randomUUID(),

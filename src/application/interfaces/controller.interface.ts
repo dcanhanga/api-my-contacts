@@ -1,6 +1,6 @@
-import type { IHttpResponse } from './http.interface.js';
+import type { IApiResponse } from '@/application/index.js';
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export interface IController<T = any> {
-	handle: (request: T) => Promise<IHttpResponse>;
+export interface IController<RequestType = void, ResponseType = any> {
+	handle(request?: RequestType): Promise<IApiResponse<ResponseType>>;
 }

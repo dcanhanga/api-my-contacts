@@ -9,3 +9,14 @@ export interface IGetCategoryByNameRepository {
 export interface IGetCategoryRepository {
 	get(): Promise<ICategory[]>;
 }
+
+export interface ICategoryCreationRepository {
+	create(category: ICategory): Promise<ICategory>;
+}
+export interface ICategoryRetrievalByNameRepository {
+	get(name: string): Promise<ICategory | undefined>;
+}
+
+export interface ICategoryRetrievalRepository {
+	get(): Promise<ICategory[]>;
+}

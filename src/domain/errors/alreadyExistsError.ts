@@ -1,4 +1,4 @@
-export class AlreadyExitsError extends Error {
+export class AlreadyExistsError extends Error {
 	entity: string;
 	constructor(entity: string) {
 		super(`${entity.toLocaleUpperCase()}_ALREADY_EXISTS`);

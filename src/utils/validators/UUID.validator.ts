@@ -1,9 +1,10 @@
 import type { UUID } from 'node:crypto';
 import {
-	type IKeyValue,
+	ApplicationErrors,
+	ErrorCode,
 	type IUUIDValidator,
 	type IValidator,
-	errors,
+	type KeyValueMap,
 } from '@/application/index.js';
 
 export class UUIDValidator implements IValidator {
@@ -11,15 +12,15 @@ export class UUIDValidator implements IValidator {
 		private readonly fieldName: UUID,
 		private readonly validateUUID: IUUIDValidator,
 	) {}
-	validate(input: IKeyValue<UUID>) {
+	validate(input: KeyValueMap<UUID>) {
 		const value = input[this.fieldName];
 		const { isValid, message } = this.validateUUID.isValid(value);
 		if (!isValid && typeof message === 'string') {
-			throw new errors.InvalidParameterError({
+			throw new ApplicationErrors.InvalidParameterError({
 				name: 'InvalidParameterError',
-				type: 'INVALID_PARAMETER',
+				errorType: ErrorCode.INVALID_PARAMETER,
 				fieldName: this.fieldName,
-				message,
+				message: `${this.fieldName.toLocaleUpperCase()}_${message}`,
 			});
 		}
 	}

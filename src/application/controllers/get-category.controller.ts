@@ -1,24 +1,28 @@
+import {
+	ApiErrorResponses,
+	ApiResponse,
+	ApiSuccessResponse,
+	type IApiErrorResponse,
+	type IApiResponse,
+	type IApiResponseData,
+	type IController,
+} from '@/application/index.js';
 import type { ICategory } from '@/domain/index.js';
 import type { GetCategoryUseCase } from '@/domain/use-cases/get-category.use-case.js';
-import { errorResponses } from '../helpers/errors.js';
-import { httpResponse } from '../helpers/https.js';
-import { successResponse } from '../helpers/success.js';
-import type { IController } from '../interfaces/controller.interface.js';
-import type {
-	IErrorResponse,
-	IHttpResponse,
-	IResponseData,
-} from '../interfaces/http.interface.js';
 
-export class GetCategoryController implements IController {
+export class GetCategoryController
+	implements
+		IController<void, IApiResponseData<ICategory[]> | IApiErrorResponse>
+{
 	constructor(private readonly getCategoryUseCase: GetCategoryUseCase) {}
-	async handle(): Promise<IHttpResponse<IBody>> {
+	async handle(): Promise<
+		IApiResponse<IApiResponseData<ICategory[]> | IApiErrorResponse>
+	> {
 		try {
 			const categories = await this.getCategoryUseCase.execute();
-			return httpResponse.success(successResponse.ok(categories));
+			return ApiResponse.success(ApiSuccessResponse.ok(categories));
 		} catch (error) {
-			return httpResponse.error(errorResponses.serverError(error as Error));
+			return ApiResponse.error(ApiErrorResponses.serverError(error as Error));
 		}
 	}
 }
-type IBody = IResponseData<ICategory[]> | IErrorResponse;

@@ -1,11 +1,8 @@
-export type Type =
-	| 'INVALID_PARAMETER'
-	| 'MISSING_PARAMETER'
-	| 'NOT_FOUND'
-	| 'CONFLICT'
-	| 'INTERNAL_SERVER_ERROR';
+import type { ErrorCode } from '@/application/index.js';
+
+export type ErrorType = keyof typeof ErrorCode;
 export interface IError {
-	type: Type;
+	errorType: ErrorType;
 	message: string;
 	fieldName?: string;
 	entity?: string;

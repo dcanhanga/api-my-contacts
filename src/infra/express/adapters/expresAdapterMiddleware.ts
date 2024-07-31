@@ -1,5 +1,5 @@
-import type { IMiddleware } from '@/application/index.js';
 import type { NextFunction, Request, Response } from 'express';
+import type { IMiddleware } from '../../../../staged/application/index.js';
 
 export const adaptMiddleware = (middleware: IMiddleware) => {
 	return async (req: Request, res: Response, next: NextFunction) => {

@@ -1,25 +1,26 @@
 import {
-	type IKeyValue,
+	ApplicationErrors,
+	ErrorCode,
 	type IValidator,
-	errors,
+	type KeyValueMap,
 } from '@/application/index.js';
-import type { DefaultNameValidator } from './defaultName.validator.js';
+import type { StandardNameValidator } from './standard-name-validator.validator.js';
 
 export class NameValidator implements IValidator {
 	constructor(
 		private readonly fieldName: string,
-		private readonly nameValidation: DefaultNameValidator,
+		private readonly nameValidation: StandardNameValidator,
 	) {}
 
-	validate(input: IKeyValue<string>) {
+	validate(input: KeyValueMap<string>) {
 		const value = input[this.fieldName];
 		const { isValid, message } = this.nameValidation.isValid(value);
 		if (!isValid && typeof message === 'string') {
-			throw new errors.InvalidParameterError({
+			throw new ApplicationErrors.InvalidParameterError({
 				name: 'InvalidParameterError',
-				type: 'INVALID_PARAMETER',
+				errorType: ErrorCode.INVALID_PARAMETER,
 				fieldName: this.fieldName,
-				message,
+				message: `${this.fieldName.toLocaleUpperCase()}_${message}`,
 			});
 		}
 	}

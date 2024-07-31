@@ -1,11 +1,11 @@
-import { GetCategoryController } from '@/application/controllers/get-category.controller.js';
-import type { IController } from '@/application/index.js';
 import { GetCategoryUseCase } from '@/domain/use-cases/get-category.use-case.js';
-import { GetCategoryRepositoryPG } from '@/infra/repositories/pg/get-category.repository.js';
+import { GetCategoryController } from '../../../../staged/application/controllers/get-category.controller.js';
+import type { IController } from '../../../../staged/application/index.js';
+import { categoryRepositoryFactory } from '../repositories/category-factory.js';
 
 export const makeGetCategory = (): IController => {
 	const getCategoryUseCase = new GetCategoryUseCase(
-		new GetCategoryRepositoryPG(),
+		categoryRepositoryFactory.getCategoryRepository(),
 	);
 	return new GetCategoryController(getCategoryUseCase);
 };

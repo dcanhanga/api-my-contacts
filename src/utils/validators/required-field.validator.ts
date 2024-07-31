@@ -1,19 +1,20 @@
 import {
-	type IKeyValue,
+	ApplicationErrors,
+	ErrorCode,
 	type IValidator,
-	errors,
+	type KeyValueMap,
 } from '@/application/index.js';
 
 export class RequiredFieldValidator implements IValidator {
 	constructor(private readonly fieldName: string) {}
-	validate(input: IKeyValue<string>) {
+	validate(input: KeyValueMap<string>) {
 		const message = `${this.fieldName.toLocaleUpperCase()}_IS_REQUIRED`;
 		if (!input[this.fieldName]) {
-			throw new errors.MissingParameterError({
+			throw new ApplicationErrors.MissingParameterError({
 				name: 'MissingParameterError',
 				message,
 				fieldName: this.fieldName,
-				type: 'MISSING_PARAMETER',
+				errorType: ErrorCode.MISSING_PARAMETER,
 			});
 		}
 	}

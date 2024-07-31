@@ -1,19 +1,19 @@
-import type { IAppError, Type } from '@/application/index.js';
+import type { ErrorType, IAppError } from '@/application/index.js';
 
 export class AppError extends Error implements IAppError {
 	fieldName?: string;
-	type: Type;
+	errorType: ErrorType;
 	entity?: string;
 
 	constructor(error: IAppError) {
 		super(error.message);
 		this.name = 'AppError';
 		this.fieldName = error.fieldName;
-		this.type = error.type;
-
+		this.errorType = error.errorType;
 		this.entity = error.entity;
 	}
 }
+
 class MissingParameterError extends AppError {
 	constructor(error: IAppError) {
 		super(error);
@@ -28,7 +28,7 @@ class InvalidParameterError extends AppError {
 	}
 }
 
-export const errors = {
+export const ApplicationErrors = {
 	AppError,
 	InvalidParameterError,
 	MissingParameterError,
