@@ -1,4 +1,6 @@
-import { AlreadyExistsError } from './alreadyExistsError.js';
+import { AlreadyExistsError } from './already-exists-error.js';
+import { NotFoundError } from './not-found-error.js';
 export const DomainErrors = {
 	AlreadyExistsError,
+	NotFoundError,
 };

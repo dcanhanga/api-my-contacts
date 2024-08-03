@@ -1,32 +1,29 @@
-import { CreateCategoryUseCase } from '@/domain/index.js';
-import { GetCategoryUseCase } from '@/domain/use-cases/get-category.use-case.js';
-import { categoryRepositoryFactory } from '../repositories/category-factory.js';
+import {
+	CreateCategoryUseCase,
+	DeleteCategoryUseCase,
+	GetCategoriesUseCase,
+} from '@/domain/index.js';
+import { repositoryFactory } from '../repositories/category-factory.js';
 
-class CategoryUseCaseFactory {
-	private static instance: CategoryUseCaseFactory;
-	private createCategoryUseCaseInstance: CreateCategoryUseCase;
-	private getCategoryUseCaseInstance: GetCategoryUseCase;
-	private constructor() {
-		this.createCategoryUseCaseInstance = new CreateCategoryUseCase(
-			categoryRepositoryFactory.createCategoryRepository(),
-			categoryRepositoryFactory.getCategoryByNameRepository(),
-		);
-		this.getCategoryUseCaseInstance = new GetCategoryUseCase(
-			categoryRepositoryFactory.getCategoryRepository(),
-		);
-	}
+const getCategoriesUseCaseFactory = () => {
+	return new GetCategoriesUseCase(repositoryFactory.getCategories);
+};
 
-	public static getInstance(): CategoryUseCaseFactory {
-		if (!CategoryUseCaseFactory.instance) {
-			CategoryUseCaseFactory.instance = new CategoryUseCaseFactory();
-		}
-		return CategoryUseCaseFactory.instance;
-	}
-	public createCategoryUseCase(): CreateCategoryUseCase {
-		return this.createCategoryUseCaseInstance;
-	}
-	public getCategoryUseCase(): GetCategoryUseCase {
-		return this.getCategoryUseCaseInstance;
-	}
-}
-export const categoryUseCaseFactory = CategoryUseCaseFactory.getInstance();
+const createCategoryFactory = () => {
+	return new CreateCategoryUseCase(
+		repositoryFactory.getCategoryByName,
+		repositoryFactory.createCategory,
+	);
+};
+const deleteCategoryFactory = () => {
+	return new DeleteCategoryUseCase(
+		repositoryFactory.getCategoryById,
+		repositoryFactory.deleteCategory,
+	);
+};
+
+export const useCaseFactory = {
+	getCategories: getCategoriesUseCaseFactory(),
+	createCategory: createCategoryFactory(),
+	deleteCategory: deleteCategoryFactory(),
+};

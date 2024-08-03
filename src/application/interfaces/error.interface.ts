@@ -1,4 +1,4 @@
-import type { ErrorCode } from '@/application/index.js';
+import type { ErrorCode } from '@/application/enum/index.js';
 
 export type ErrorType = keyof typeof ErrorCode;
 export interface IError {

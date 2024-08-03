@@ -1,4 +1,5 @@
-import type { ICategory } from '@/domain/index.js';
+import type { UUID } from 'node:crypto';
+import type { ICategory } from '../index.js';
 
 export interface ICreateCategoryRepository {
 	create(category: ICategory): Promise<ICategory>;
@@ -6,17 +7,15 @@ export interface ICreateCategoryRepository {
 export interface IGetCategoryByNameRepository {
 	get(name: string): Promise<ICategory | undefined>;
 }
-export interface IGetCategoryRepository {
+
+export interface IGetCategoriesRepository {
 	get(): Promise<ICategory[]>;
 }
 
-export interface ICategoryCreationRepository {
-	create(category: ICategory): Promise<ICategory>;
-}
-export interface ICategoryRetrievalByNameRepository {
-	get(name: string): Promise<ICategory | undefined>;
+export interface IDeletedCategoryRepository {
+	delete(id: UUID): Promise<void>;
 }
 
-export interface ICategoryRetrievalRepository {
-	get(): Promise<ICategory[]>;
+export interface IGetCategoryByIdRepository {
+	get(id: UUID): Promise<ICategory>;
 }

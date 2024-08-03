@@ -1,4 +1,4 @@
-import type { IApiResponse, IApiResponseData } from '@/application/index.js';
+import type { IApiResponse, IApiResponseData } from '../index.js';
 import { formatMeta } from './utils.js';
 
 const created = <T>(

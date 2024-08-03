@@ -1,14 +1,19 @@
-import { categoryControllerFactory } from '@/infra/factories/controllers/category-factory.js';
+import { controllerFactory } from '@/infra/factories/index.js';
 import type { Router } from 'express';
-import { expressAdapterRoute } from '../adapters/expressAdapterRoute.js';
+
+import { expressAdapterRoute } from '../config/adapters/express-adapter-route.js';
 
 export default (router: Router): void => {
 	router.get(
 		'/categories',
-		expressAdapterRoute(categoryControllerFactory.getCategoryController()),
+		expressAdapterRoute(controllerFactory.getCategories),
 	);
 	router.post(
 		'/categories',
-		expressAdapterRoute(categoryControllerFactory.createCategoryController()),
+		expressAdapterRoute(controllerFactory.createCategory),
+	);
+	router.delete(
+		'/categories/:id',
+		expressAdapterRoute(controllerFactory.deleteCategory),
 	);
 };

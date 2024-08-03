@@ -1,12 +1,10 @@
-import {
-	ErrorCode,
-	ErrorMessageMeta,
-	type IApiErrorResponse,
-	type IApiResponse,
-	type IAppError,
-	formatBodyError,
-	formatMeta,
-} from '@/application/index.js';
+import { ErrorCode, ErrorMessageMeta } from '@/application/enum/index.js';
+import type {
+	IApiErrorResponse,
+	IApiResponse,
+	IAppError,
+} from '@/application/interfaces/index.js';
+import { formatBodyError, formatMeta } from './utils.js';
 
 const badRequest = (error: IAppError): IApiResponse<IApiErrorResponse> => ({
 	statusCode: 400,
@@ -26,6 +24,16 @@ const conflictRequest = (
 	},
 });
 
+const notFoundRequest = (
+	error: IAppError,
+): IApiResponse<IApiErrorResponse> => ({
+	statusCode: 404,
+	body: {
+		error: formatBodyError(error),
+		meta: formatMeta('error', ErrorMessageMeta.NOT_FOUND),
+	},
+});
+
 const serverError = (error: Error): IApiResponse<IApiErrorResponse> => ({
 	statusCode: 500,
 	body: {
@@ -41,4 +49,5 @@ export const ApiErrorResponses = {
 	conflictRequest,
 	badRequest,
 	serverError,
+	notFoundRequest,
 };

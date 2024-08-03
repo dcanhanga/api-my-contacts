@@ -1,5 +1,5 @@
-import type { UUID } from 'node:crypto';
+import type { ResponseValidator } from './validator.interface.js';
+
 export interface IUUIDValidator {
-	isValid: (uuid: UUID) => Response;
+	isValid: (uuid: unknown) => ResponseValidator;
 }
-export type Response = { isValid: boolean; message?: string };

@@ -1,5 +1,5 @@
-import DatabaseHelper from '@/infra/db/postgres.js';
-import { setupExpress } from '../express/config/setup.js';
+import { DatabaseHelper } from '@/infra/db/index.js';
+import { setupExpress } from '@/infra/express/config/setup.js';
 
 async function startServer() {
 	const PORT = process.env.PORT ?? 3000;

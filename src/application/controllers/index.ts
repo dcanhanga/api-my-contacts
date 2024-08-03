@@ -1,2 +1,2 @@
+export * from './get-categories.controller.js';
 export * from './create-category.controller.js';
-export * from './get-category.controller.js';

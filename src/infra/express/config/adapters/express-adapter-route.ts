@@ -1,5 +1,5 @@
+import type { IController } from '@/application/index.js';
 import type { Request, Response } from 'express';
-import type { IController } from '../../../../staged/application/index.js';
 
 export const expressAdapterRoute = (controller: IController) => {
 	return async (req: Request, res: Response) => {

@@ -1,15 +1,35 @@
+import { DeleteCategoryController } from '@/application/controllers/delete-category.controller.js';
 import {
 	CreateCategoryController,
-	GetCategoryController,
+	GetCategoriesController,
+	type IController,
 } from '@/application/index.js';
 import {
 	NameValidator,
 	RequiredFieldValidator,
 	StandardNameValidator,
+	StandardUUIDValidator,
+	UUIDValidator,
 	ValidatorComposite,
 } from '@/utils/index.js';
-import {} from '../../../../staged/utils/index.js';
-import { categoryUseCaseFactory } from '../use-cases/category-factory.js';
+import { useCaseFactory } from '../use-cases/category-factory.js';
+
+const getCategoriesControllerFactory = (): IController => {
+	return new GetCategoriesController(useCaseFactory.getCategories);
+};
+const createCategoryControllerFactory = (): IController => {
+	return new CreateCategoryController(
+		useCaseFactory.createCategory,
+		createCategoryValidatorComposition(),
+	);
+};
+
+const deleteCategoryControllerFactory = (): IController => {
+	return new DeleteCategoryController(
+		useCaseFactory.deleteCategory,
+		deleteCategoryValidatorComposition(),
+	);
+};
 
 const createCategoryValidatorComposition = (): ValidatorComposite => {
 	const validators = [];
@@ -19,32 +39,15 @@ const createCategoryValidatorComposition = (): ValidatorComposite => {
 	validators.push(new NameValidator('name', new StandardNameValidator()));
 	return new ValidatorComposite(validators);
 };
-class CategoryControllerFactory {
-	private static instance: CategoryControllerFactory;
-	private createCategoryControllerInstance: CreateCategoryController;
-	private getCategoryControllerInstance: GetCategoryController;
-	public static getInstance(): CategoryControllerFactory {
-		if (!CategoryControllerFactory.instance) {
-			CategoryControllerFactory.instance = new CategoryControllerFactory();
-		}
-		return CategoryControllerFactory.instance;
-	}
-	private constructor() {
-		this.createCategoryControllerInstance = new CreateCategoryController(
-			categoryUseCaseFactory.createCategoryUseCase(),
-			createCategoryValidatorComposition(),
-		);
-		this.getCategoryControllerInstance = new GetCategoryController(
-			categoryUseCaseFactory.getCategoryUseCase(),
-		);
-	}
-	public createCategoryController(): CreateCategoryController {
-		return this.createCategoryControllerInstance;
-	}
-	public getCategoryController(): GetCategoryController {
-		return this.getCategoryControllerInstance;
-	}
-}
 
-export const categoryControllerFactory =
-	CategoryControllerFactory.getInstance();
+const deleteCategoryValidatorComposition = (): ValidatorComposite => {
+	const validators = [];
+	validators.push(new UUIDValidator('id', new StandardUUIDValidator()));
+	return new ValidatorComposite(validators);
+};
+
+export const controllerFactory = {
+	getCategories: getCategoriesControllerFactory(),
+	createCategory: createCategoryControllerFactory(),
+	deleteCategory: deleteCategoryControllerFactory(),
+};

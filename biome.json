@@ -5,13 +5,19 @@
 	},
 	"linter": {
 		"enabled": true,
+
 		"rules": {
 			"recommended": true,
+			"complexity": { "noStaticOnlyClass": "off" },
 			"performance": {
 				"recommended": true
+			},
+			"style": {
+				"noUnusedTemplateLiteral": "off"
 			}
 		}
 	},
+
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "single"

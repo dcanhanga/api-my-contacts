@@ -2,19 +2,21 @@ import {
 	ApiErrorResponses,
 	ApiResponse,
 	ApiSuccessResponse,
-	type IApiErrorResponse,
-	type IApiResponse,
-	type IApiResponseData,
-	type IController,
-} from '@/application/index.js';
-import type { ICategory } from '@/domain/index.js';
-import type { GetCategoryUseCase } from '@/domain/use-cases/get-category.use-case.js';
+} from '@/application/helpers/index.js';
 
-export class GetCategoryController
+import type {
+	IApiErrorResponse,
+	IApiResponse,
+	IApiResponseData,
+	IController,
+} from '@/application/interfaces/index.js';
+import type { GetCategoriesUseCase, ICategory } from '@/domain/index.js';
+
+export class GetCategoriesController
 	implements
 		IController<void, IApiResponseData<ICategory[]> | IApiErrorResponse>
 {
-	constructor(private readonly getCategoryUseCase: GetCategoryUseCase) {}
+	constructor(private readonly getCategoryUseCase: GetCategoriesUseCase) {}
 	async handle(): Promise<
 		IApiResponse<IApiResponseData<ICategory[]> | IApiErrorResponse>
 	> {

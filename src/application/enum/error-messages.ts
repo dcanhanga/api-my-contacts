@@ -12,6 +12,7 @@ export enum ErrorMessageMeta {
 	INVALID_PARAMETER = 'Invalid parameter',
 	CONFLICT = 'Conflict',
 	INTERNAL_SERVER_ERROR = 'Internal Server Error',
+	NOT_FOUND = 'Not Found',
 }
 
 export enum ErrorCode {
@@ -20,4 +21,5 @@ export enum ErrorCode {
 	INVALID_PARAMETER = 'INVALID_PARAMETER',
 	CONFLICT = 'CONFLICT',
 	INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
+	NOT_FOUND = 'NOT_FOUND',
 }

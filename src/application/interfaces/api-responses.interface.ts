@@ -1,4 +1,4 @@
-import type { IError } from '@/application/index.js';
+import type { IError } from './error.interface.js';
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export interface IApiResponse<T = any> {

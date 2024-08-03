@@ -2,8 +2,7 @@ import pg from 'pg';
 
 const { Client } = pg;
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
-class DatabaseHelper {
+export class DatabaseHelper {
 	private static client: pg.Client | null = null;
 
 	public static async connect() {
@@ -48,5 +47,3 @@ class DatabaseHelper {
 		}
 	}
 }
-
-export default DatabaseHelper;

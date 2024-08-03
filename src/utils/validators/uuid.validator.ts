@@ -9,7 +9,7 @@ import {
 
 export class UUIDValidator implements IValidator {
 	constructor(
-		private readonly fieldName: UUID,
+		private readonly fieldName: string,
 		private readonly validateUUID: IUUIDValidator,
 	) {}
 	validate(input: KeyValueMap<UUID>) {

@@ -1,18 +1,18 @@
 import { randomUUID } from 'node:crypto';
 import {
+	type CreateCategoryDto,
 	DomainErrors,
 	type ICategory,
-	type ICreateCategoryDto,
 	type ICreateCategoryRepository,
 	type IGetCategoryByNameRepository,
-} from '@/domain/index.js';
+} from '../index.js';
 
 export class CreateCategoryUseCase {
 	constructor(
-		private readonly createCategoryRepository: ICreateCategoryRepository,
 		private readonly getCategoryByNameRepository: IGetCategoryByNameRepository,
+		private readonly createCategoryRepository: ICreateCategoryRepository,
 	) {}
-	async execute(data: ICreateCategoryDto): Promise<ICategory> {
+	async execute(data: CreateCategoryDto): Promise<ICategory> {
 		const normalizedInput = data.name.replace(/\s+/g, '').toLowerCase();
 		const existingCategory =
 			await this.getCategoryByNameRepository.get(normalizedInput);
@@ -22,6 +22,8 @@ export class CreateCategoryUseCase {
 		const category = await this.createCategoryRepository.create({
 			id: randomUUID(),
 			name: data.name,
+			createdAt: new Date(),
+			updatedAt: new Date(),
 		});
 
 		return category;

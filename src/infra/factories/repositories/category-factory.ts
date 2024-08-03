@@ -1,40 +1,31 @@
-import type {
-	ICreateCategoryRepository,
-	IGetCategoryByNameRepository,
-	IGetCategoryRepository,
-} from '@/domain/index.js';
 import {
 	CreateCategoryRepositoryPG,
+	DeleteCategoryRepositoryPG,
+	GetCategoriesRepositoryPG,
+	GetCategoryByIdRepositoryPG,
 	GetCategoryByNameRepositoryPG,
-	GetCategoryRepositoryPG,
-} from '@/infra/index.js';
+} from '@/infra/repositories/index.js';
 
-export class CategoryRepositoryFactory {
-	private static instance: CategoryRepositoryFactory;
-	private readonly getCategoryRepositoryInstance: IGetCategoryRepository;
-	private readonly createCategoryRepositoryInstance: ICreateCategoryRepository;
-	private readonly getCategoryByNameInstance: IGetCategoryByNameRepository;
-	private constructor() {
-		this.getCategoryRepositoryInstance = new GetCategoryRepositoryPG();
-		this.createCategoryRepositoryInstance = new CreateCategoryRepositoryPG();
-		this.getCategoryByNameInstance = new GetCategoryByNameRepositoryPG();
-	}
-	public static getInstance(): CategoryRepositoryFactory {
-		if (!CategoryRepositoryFactory.instance) {
-			CategoryRepositoryFactory.instance = new CategoryRepositoryFactory();
-		}
-		return CategoryRepositoryFactory.instance;
-	}
-	public getCategoryRepository(): IGetCategoryRepository {
-		return this.getCategoryRepositoryInstance;
-	}
-	public createCategoryRepository(): ICreateCategoryRepository {
-		return this.createCategoryRepositoryInstance;
-	}
-	public getCategoryByNameRepository(): IGetCategoryByNameRepository {
-		return this.getCategoryByNameInstance;
-	}
-}
+const getCategoriesRepositoryFactory = () => {
+	return new GetCategoriesRepositoryPG();
+};
 
-export const categoryRepositoryFactory =
-	CategoryRepositoryFactory.getInstance();
+const getCategoryByIdRepositoryFactory = () => {
+	return new GetCategoryByIdRepositoryPG();
+};
+const getCategoryByNameRepositoryFactory = () => {
+	return new GetCategoryByNameRepositoryPG();
+};
+const createCategoryRepositoryFactory = () => {
+	return new CreateCategoryRepositoryPG();
+};
+const deleteCategoryRepositoryFactory = () => {
+	return new DeleteCategoryRepositoryPG();
+};
+export const repositoryFactory = {
+	getCategories: getCategoriesRepositoryFactory(),
+	getCategoryById: getCategoryByIdRepositoryFactory(),
+	getCategoryByName: getCategoryByNameRepositoryFactory(),
+	createCategory: createCategoryRepositoryFactory(),
+	deleteCategory: deleteCategoryRepositoryFactory(),
+};

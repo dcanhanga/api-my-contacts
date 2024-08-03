@@ -1,4 +1,4 @@
-import type { ErrorType, IAppError } from '@/application/index.js';
+import type { ErrorType, IAppError } from '@/application/interfaces/index.js';
 
 export class AppError extends Error implements IAppError {
 	fieldName?: string;

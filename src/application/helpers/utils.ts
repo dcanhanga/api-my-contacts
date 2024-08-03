@@ -4,7 +4,7 @@ import type {
 	IApiResponseData,
 	IAppError,
 	IResponseMeta,
-} from '@/application/index.js';
+} from '../index.js';
 
 export const formatMeta = (
 	status: 'success' | 'error',
