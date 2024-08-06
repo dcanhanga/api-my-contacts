@@ -16,4 +16,8 @@ export default (router: Router): void => {
 		'/categories/:id',
 		expressAdapterRoute(controllerFactory.deleteCategory),
 	);
+	router.put(
+		'/categories/:id',
+		expressAdapterRoute(controllerFactory.updateCategory),
+	);
 };

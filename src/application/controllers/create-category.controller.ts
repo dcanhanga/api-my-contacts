@@ -18,7 +18,7 @@ import type {
 	IController,
 	IValidator,
 } from '@/application/interfaces/index.js';
-import { ErrorCode } from '../enum/error-messages.js';
+import {} from '../enum/error-messages.js';
 
 export class CreateCategoryController
 	implements
@@ -54,7 +54,6 @@ export class CreateCategoryController
 			return ApiResponse.error(
 				ApiErrorResponses.conflictRequest({
 					message: error.message,
-					errorType: ErrorCode.CONFLICT,
 					name: 'ConflictError',
 					entity: 'Category',
 				}),

@@ -1,7 +1,6 @@
 import type { UUID } from 'node:crypto';
 import {
 	ApplicationErrors,
-	ErrorCode,
 	type IUUIDValidator,
 	type IValidator,
 	type KeyValueMap,
@@ -18,7 +17,6 @@ export class UUIDValidator implements IValidator {
 		if (!isValid && typeof message === 'string') {
 			throw new ApplicationErrors.InvalidParameterError({
 				name: 'InvalidParameterError',
-				errorType: ErrorCode.INVALID_PARAMETER,
 				fieldName: this.fieldName,
 				message: `${this.fieldName.toLocaleUpperCase()}_${message}`,
 			});

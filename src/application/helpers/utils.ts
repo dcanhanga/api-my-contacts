@@ -3,20 +3,9 @@ import type {
 	IApiResponse,
 	IApiResponseData,
 	IAppError,
-	IResponseMeta,
 } from '../index.js';
 
-export const formatMeta = (
-	status: 'success' | 'error',
-	message: string,
-): IResponseMeta => ({
-	status,
-	timestamp: new Date().toISOString(),
-	message,
-});
-
 export const formatBodyError = (error: IAppError) => ({
-	errorType: error.errorType,
 	message: error.message,
 	fieldName: error.fieldName,
 	entity: error.entity,

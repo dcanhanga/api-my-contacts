@@ -3,6 +3,7 @@ import {
 	DeleteCategoryUseCase,
 	GetCategoriesUseCase,
 } from '@/domain/index.js';
+import { UpdateCategoryUseCase } from '@/domain/index.js';
 import { repositoryFactory } from '../repositories/category-factory.js';
 
 const getCategoriesUseCaseFactory = () => {
@@ -16,9 +17,14 @@ const createCategoryFactory = () => {
 	);
 };
 const deleteCategoryFactory = () => {
-	return new DeleteCategoryUseCase(
+	return new DeleteCategoryUseCase(repositoryFactory.deleteCategory);
+};
+
+const updateCategoryFactory = () => {
+	return new UpdateCategoryUseCase(
+		repositoryFactory.getCategoryByName,
 		repositoryFactory.getCategoryById,
-		repositoryFactory.deleteCategory,
+		repositoryFactory.updateCategory,
 	);
 };
 
@@ -26,4 +32,5 @@ export const useCaseFactory = {
 	getCategories: getCategoriesUseCaseFactory(),
 	createCategory: createCategoryFactory(),
 	deleteCategory: deleteCategoryFactory(),
+	updateCategory: updateCategoryFactory(),
 };

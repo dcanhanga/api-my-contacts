@@ -1,6 +1,5 @@
 import {
 	ApplicationErrors,
-	ErrorCode,
 	type IValidator,
 	type KeyValueMap,
 } from '@/application/index.js';
@@ -14,7 +13,6 @@ export class RequiredFieldValidator implements IValidator {
 				name: 'MissingParameterError',
 				message,
 				fieldName: this.fieldName,
-				errorType: ErrorCode.MISSING_PARAMETER,
 			});
 		}
 	}

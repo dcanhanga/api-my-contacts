@@ -6,8 +6,8 @@ export class CategoryDataMapper {
 		return dbRecord.map((category) => ({
 			id: category.id,
 			name: category.name,
-			createdAt: new Date(category.created_at),
-			updatedAt: new Date(category.updated_at),
+			createdAt: category.created_at,
+			updatedAt: category.updated_at,
 		}));
 	}
 	static toDbEntity(categories: ICategory): ICategoryModel {

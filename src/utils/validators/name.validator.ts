@@ -1,6 +1,5 @@
 import {
 	ApplicationErrors,
-	ErrorCode,
 	type INameValidator,
 	type IValidator,
 	type KeyValueMap,
@@ -18,7 +17,6 @@ export class NameValidator implements IValidator {
 		if (!isValid && typeof message === 'string') {
 			throw new ApplicationErrors.InvalidParameterError({
 				name: 'InvalidParameterError',
-				errorType: ErrorCode.INVALID_PARAMETER,
 				fieldName: this.fieldName,
 				message: `${this.fieldName.toLocaleUpperCase()}_${message}`,
 			});

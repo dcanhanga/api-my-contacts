@@ -3,6 +3,7 @@ import {
 	CreateCategoryController,
 	GetCategoriesController,
 	type IController,
+	UpdateCategoryController,
 } from '@/application/index.js';
 import {
 	NameValidator,
@@ -20,7 +21,7 @@ const getCategoriesControllerFactory = (): IController => {
 const createCategoryControllerFactory = (): IController => {
 	return new CreateCategoryController(
 		useCaseFactory.createCategory,
-		createCategoryValidatorComposition(),
+		createUpdateCategoryValidatorComposition(),
 	);
 };
 
@@ -31,7 +32,14 @@ const deleteCategoryControllerFactory = (): IController => {
 	);
 };
 
-const createCategoryValidatorComposition = (): ValidatorComposite => {
+const updateCategoryControllerFactory = (): IController => {
+	return new UpdateCategoryController(
+		useCaseFactory.updateCategory,
+		createUpdateCategoryValidatorComposition(),
+	);
+};
+
+const createUpdateCategoryValidatorComposition = (): ValidatorComposite => {
 	const validators = [];
 	for (const field of ['name']) {
 		validators.push(new RequiredFieldValidator(field));
@@ -50,4 +58,5 @@ export const controllerFactory = {
 	getCategories: getCategoriesControllerFactory(),
 	createCategory: createCategoryControllerFactory(),
 	deleteCategory: deleteCategoryControllerFactory(),
+	updateCategory: updateCategoryControllerFactory(),
 };

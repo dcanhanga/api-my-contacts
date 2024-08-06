@@ -14,6 +14,7 @@ export class GetCategoryByIdRepositoryPG implements IGetCategoryByIdRepository {
 		);
 
 		const [category] = CategoryDataMapper.toEntity(dbRecord);
+
 		return category;
 	}
 }

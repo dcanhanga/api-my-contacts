@@ -1,5 +1,4 @@
 import type { IApiResponse, IApiResponseData } from '../index.js';
-import { formatMeta } from './utils.js';
 
 const created = <T>(
 	data: T,
@@ -7,8 +6,8 @@ const created = <T>(
 ): IApiResponse<IApiResponseData<T>> => ({
 	statusCode: 201,
 	body: {
+		message,
 		data,
-		meta: formatMeta('success', message),
 	},
 });
 
@@ -19,7 +18,7 @@ const ok = <T>(
 	statusCode: 200,
 	body: {
 		data,
-		meta: formatMeta('success', message),
+		message,
 	},
 });
 

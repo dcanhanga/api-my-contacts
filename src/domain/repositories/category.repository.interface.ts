@@ -1,15 +1,20 @@
 import type { UUID } from 'node:crypto';
-import type { ICategory } from '../index.js';
+import type {
+	CreateCategoryDto,
+	GetCategoriesDto,
+	ICategory,
+	UpdateCategoryDto,
+} from '../index.js';
 
 export interface ICreateCategoryRepository {
-	create(category: ICategory): Promise<ICategory>;
+	create(category: CreateCategoryDto): Promise<ICategory>;
 }
 export interface IGetCategoryByNameRepository {
 	get(name: string): Promise<ICategory | undefined>;
 }
 
 export interface IGetCategoriesRepository {
-	get(): Promise<ICategory[]>;
+	get(orderBy: GetCategoriesDto['orderBy']): Promise<ICategory[]>;
 }
 
 export interface IDeletedCategoryRepository {
@@ -18,4 +23,8 @@ export interface IDeletedCategoryRepository {
 
 export interface IGetCategoryByIdRepository {
 	get(id: UUID): Promise<ICategory>;
+}
+
+export interface IUpdateCategoryRepository {
+	update(category: UpdateCategoryDto): Promise<ICategory>;
 }

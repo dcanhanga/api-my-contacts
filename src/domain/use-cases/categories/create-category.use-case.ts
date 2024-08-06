@@ -5,7 +5,7 @@ import {
 	type ICategory,
 	type ICreateCategoryRepository,
 	type IGetCategoryByNameRepository,
-} from '../index.js';
+} from '../../index.js';
 
 export class CreateCategoryUseCase {
 	constructor(
@@ -23,7 +23,6 @@ export class CreateCategoryUseCase {
 			id: randomUUID(),
 			name: data.name,
 			createdAt: new Date(),
-			updatedAt: new Date(),
 		});
 
 		return category;
