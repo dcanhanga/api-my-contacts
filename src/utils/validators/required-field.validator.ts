@@ -1,5 +1,6 @@
 import {
-	ApplicationErrors,
+	AppError,
+	ErrorMessage,
 	type IValidator,
 	type KeyValueMap,
 } from '@/application/index.js';
@@ -7,13 +8,15 @@ import {
 export class RequiredFieldValidator implements IValidator {
 	constructor(private readonly fieldName: string) {}
 	validate(input: KeyValueMap<string>) {
-		const message = `${this.fieldName.toLocaleUpperCase()}_IS_REQUIRED`;
+		const message = ErrorMessage.REQUIRED_FIELD;
 		if (!input[this.fieldName]) {
-			throw new ApplicationErrors.MissingParameterError({
-				name: 'MissingParameterError',
+			const missingParameterError = new AppError({
 				message,
-				fieldName: this.fieldName,
+				errors: {
+					[this.fieldName]: message,
+				},
 			});
+			return missingParameterError;
 		}
 	}
 }

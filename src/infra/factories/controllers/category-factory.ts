@@ -1,9 +1,7 @@
-import { DeleteCategoryController } from '@/application/controllers/delete-category.controller.js';
 import {
 	CreateCategoryController,
 	GetCategoriesController,
 	type IController,
-	UpdateCategoryController,
 } from '@/application/index.js';
 import {
 	NameValidator,
@@ -13,38 +11,38 @@ import {
 	UUIDValidator,
 	ValidatorComposite,
 } from '@/utils/index.js';
-import { useCaseFactory } from '../use-cases/category-factory.js';
+import { categoryUseCaseFactory } from '../use-cases/category-factory.js';
 
-const getCategoriesControllerFactory = (): IController => {
-	return new GetCategoriesController(useCaseFactory.getCategories);
+const getCategoriesController = (): IController => {
+	return new GetCategoriesController(categoryUseCaseFactory.getAll);
 };
-const createCategoryControllerFactory = (): IController => {
+const createCategoryController = (): IController => {
 	return new CreateCategoryController(
-		useCaseFactory.createCategory,
+		categoryUseCaseFactory.create,
 		createUpdateCategoryValidatorComposition(),
 	);
 };
 
-const deleteCategoryControllerFactory = (): IController => {
-	return new DeleteCategoryController(
-		useCaseFactory.deleteCategory,
-		deleteCategoryValidatorComposition(),
-	);
-};
+// const deleteCategoryControllerFactory = (): IController => {
+// 	return new DeleteCategoryController(
+// 		useCaseFactory.deleteCategory,
+// 		deleteCategoryValidatorComposition(),
+// 	);
+// };
 
-const updateCategoryControllerFactory = (): IController => {
-	return new UpdateCategoryController(
-		useCaseFactory.updateCategory,
-		createUpdateCategoryValidatorComposition(),
-	);
-};
+// const updateCategoryControllerFactory = (): IController => {
+// 	return new UpdateCategoryController(
+// 		useCaseFactory.updateCategory,
+// 		createUpdateCategoryValidatorComposition(),
+// 	);
+// };
 
 const createUpdateCategoryValidatorComposition = (): ValidatorComposite => {
 	const validators = [];
+	validators.push(new NameValidator('name', new StandardNameValidator()));
 	for (const field of ['name']) {
 		validators.push(new RequiredFieldValidator(field));
 	}
-	validators.push(new NameValidator('name', new StandardNameValidator()));
 	return new ValidatorComposite(validators);
 };
 
@@ -54,9 +52,10 @@ const deleteCategoryValidatorComposition = (): ValidatorComposite => {
 	return new ValidatorComposite(validators);
 };
 
-export const controllerFactory = {
-	getCategories: getCategoriesControllerFactory(),
-	createCategory: createCategoryControllerFactory(),
-	deleteCategory: deleteCategoryControllerFactory(),
-	updateCategory: updateCategoryControllerFactory(),
+export const categoryControllerFactory = {
+	// getCategories: getCategoriesControllerFactory(),
+	create: createCategoryController(),
+	getAll: getCategoriesController(),
+	// deleteCategory: deleteCategoryControllerFactory(),
+	// updateCategory: updateCategoryControllerFactory(),
 };

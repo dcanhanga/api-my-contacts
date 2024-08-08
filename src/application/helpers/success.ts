@@ -1,9 +1,9 @@
-import type { IApiResponse, IApiResponseData } from '../index.js';
+import type { IApiResponse } from '../index.js';
 
 const created = <T>(
 	data: T,
 	message = 'Operation completed successfully',
-): IApiResponse<IApiResponseData<T>> => ({
+): IApiResponse<T> => ({
 	statusCode: 201,
 	body: {
 		message,
@@ -14,11 +14,11 @@ const created = <T>(
 const ok = <T>(
 	data: T,
 	message = 'Operation completed successfully',
-): IApiResponse<IApiResponseData<T>> => ({
+): IApiResponse<T> => ({
 	statusCode: 200,
 	body: {
-		data,
 		message,
+		data,
 	},
 });
 

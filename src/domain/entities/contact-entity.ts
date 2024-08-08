@@ -6,6 +6,6 @@ export interface IContact {
 	email?: string;
 	phone: string;
 	categoryId: UUID;
-	createdAt: Date;
+	createdAt?: Date;
 	updatedAt?: Date;
 }

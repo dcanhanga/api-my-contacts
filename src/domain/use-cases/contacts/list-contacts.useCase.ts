@@ -1,5 +1,5 @@
 import type { IContact } from '@/domain/index.js';
-import type { IListContactsRepository } from '@/domain/repositories/contact.repository.js';
+import type { IListContactsRepository } from '@/domain/repositories/contact.repository.interface.js';
 
 export class ListContactsUseCase {
 	constructor(

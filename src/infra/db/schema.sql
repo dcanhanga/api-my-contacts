@@ -1,4 +1,10 @@
 -- Cria a extensão para UUID se não existir
+DROP TABLE IF EXISTS contacts;
+DROP TABLE IF EXISTS categories;
+
+-- Recrie as tabelas
+-- (Inclua o script de criação das tabelas aqui)
+
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Cria a tabela de categorias com timestamps e restrição de unicidade para 'name'
@@ -14,7 +20,7 @@ CREATE TABLE IF NOT EXISTS categories (
 CREATE TABLE IF NOT EXISTS contacts (
   id uuid NOT NULL DEFAULT uuid_generate_v4(),
   name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
+  email VARCHAR(255) UNIQUE DEFAULT NULL,
   phone VARCHAR(255) NOT NULL,
   category_id uuid NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

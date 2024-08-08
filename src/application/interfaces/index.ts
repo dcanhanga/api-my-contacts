@@ -4,3 +4,4 @@ export * from './error.interface.js';
 export * from './validator.interface.js';
 export * from './nameValidator.interface.js';
 export * from './UUIDValidator.interface.js';
+export * from './emailValidator.interface.js';

@@ -1,36 +1,18 @@
-import {
-	CreateCategoryUseCase,
-	DeleteCategoryUseCase,
-	GetCategoriesUseCase,
-} from '@/domain/index.js';
-import { UpdateCategoryUseCase } from '@/domain/index.js';
-import { repositoryFactory } from '../repositories/category-factory.js';
+import { CreateCategoryUseCase, GetCategoriesUseCase } from '@/domain/index.js';
+import { categoryRepositoryFactory } from '../repositories/category-factory.js';
 
-const getCategoriesUseCaseFactory = () => {
-	return new GetCategoriesUseCase(repositoryFactory.getCategories);
-};
-
-const createCategoryFactory = () => {
+const createCategoryUseCase = () => {
 	return new CreateCategoryUseCase(
-		repositoryFactory.getCategoryByName,
-		repositoryFactory.createCategory,
-	);
-};
-const deleteCategoryFactory = () => {
-	return new DeleteCategoryUseCase(repositoryFactory.deleteCategory);
-};
-
-const updateCategoryFactory = () => {
-	return new UpdateCategoryUseCase(
-		repositoryFactory.getCategoryByName,
-		repositoryFactory.getCategoryById,
-		repositoryFactory.updateCategory,
+		categoryRepositoryFactory.getByName,
+		categoryRepositoryFactory.create,
 	);
 };
 
-export const useCaseFactory = {
-	getCategories: getCategoriesUseCaseFactory(),
-	createCategory: createCategoryFactory(),
-	deleteCategory: deleteCategoryFactory(),
-	updateCategory: updateCategoryFactory(),
+const getCategoriesUseCase = () => {
+	return new GetCategoriesUseCase(categoryRepositoryFactory.getAll);
+};
+
+export const categoryUseCaseFactory = {
+	create: createCategoryUseCase(),
+	getAll: getCategoriesUseCase(),
 };

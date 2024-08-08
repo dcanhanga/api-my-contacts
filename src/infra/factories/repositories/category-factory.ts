@@ -4,8 +4,8 @@ import {
 	GetCategoriesRepositoryPG,
 	GetCategoryByIdRepositoryPG,
 	GetCategoryByNameRepositoryPG,
+	UpdateCategoryRepositoryPG,
 } from '@/infra/repositories/index.js';
-import { UpdateCategoryRepositoryPG } from '@/infra/repositories/pg/update-category.repository.js';
 
 const getCategoriesRepositoryFactory = () => {
 	return new GetCategoriesRepositoryPG();
@@ -26,11 +26,11 @@ const updateCategoryRepositoryFactory = () => {
 const deleteCategoryRepositoryFactory = () => {
 	return new DeleteCategoryRepositoryPG();
 };
-export const repositoryFactory = {
-	getCategories: getCategoriesRepositoryFactory(),
-	getCategoryById: getCategoryByIdRepositoryFactory(),
-	getCategoryByName: getCategoryByNameRepositoryFactory(),
-	createCategory: createCategoryRepositoryFactory(),
-	deleteCategory: deleteCategoryRepositoryFactory(),
-	updateCategory: updateCategoryRepositoryFactory(),
+export const categoryRepositoryFactory = {
+	getAll: getCategoriesRepositoryFactory(),
+	getById: getCategoryByIdRepositoryFactory(),
+	getByName: getCategoryByNameRepositoryFactory(),
+	create: createCategoryRepositoryFactory(),
+	delete: deleteCategoryRepositoryFactory(),
+	update: updateCategoryRepositoryFactory(),
 };

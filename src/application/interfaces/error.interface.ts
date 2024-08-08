@@ -1,9 +1,5 @@
-import type {} from '@/application/enum/index.js';
-
-export interface IError {
+export interface IAppError {
 	message: string;
-	fieldName?: string;
-	entity?: string;
+	errors?: { [key: string]: string };
 }
-
-export interface IAppError extends Error, IError {}
+export type ErrorFields = { [key: string]: string };

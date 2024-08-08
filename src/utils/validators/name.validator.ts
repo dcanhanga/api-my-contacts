@@ -1,5 +1,5 @@
 import {
-	ApplicationErrors,
+	AppError,
 	type INameValidator,
 	type IValidator,
 	type KeyValueMap,
@@ -15,11 +15,13 @@ export class NameValidator implements IValidator {
 		const value = input[this.fieldName];
 		const { isValid, message } = this.nameValidator.isValid(value);
 		if (!isValid && typeof message === 'string') {
-			throw new ApplicationErrors.InvalidParameterError({
-				name: 'InvalidParameterError',
-				fieldName: this.fieldName,
-				message: `${this.fieldName.toLocaleUpperCase()}_${message}`,
+			const invalidParameterError = new AppError({
+				message,
+				errors: {
+					[this.fieldName]: message,
+				},
 			});
+			return invalidParameterError;
 		}
 	}
 }

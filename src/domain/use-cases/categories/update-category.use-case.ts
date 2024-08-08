@@ -21,7 +21,6 @@ export class UpdateCategoryUseCase {
 			console.log(category);
 			throw new DomainErrors.NotFoundError('Category');
 		}
-
 		const existingCategory =
 			await this.getCategoryByNameRepository.get(normalizedName);
 		if (existingCategory) {
