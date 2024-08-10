@@ -14,15 +14,15 @@ export class ContactDataMapper {
 			categoryId: data.category_id,
 		}));
 	}
-	static toDbEntity(data: IContact): IContactModel {
+	static toDbEntity(partial: Partial<IContact>): Partial<IContactModel> {
 		return {
-			id: data.id,
-			name: data.name,
-			phone: data.phone,
-			email: data.email,
-			created_at: data.createdAt,
-			updated_at: data.updatedAt,
-			category_id: data.categoryId,
+			id: partial.id,
+			name: partial.name,
+			phone: partial.phone,
+			email: partial.email,
+			created_at: partial.createdAt,
+			updated_at: partial.updatedAt,
+			category_id: partial.categoryId,
 		};
 	}
 }

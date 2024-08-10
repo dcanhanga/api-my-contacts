@@ -1,12 +1,13 @@
 import type { UUID } from 'node:crypto';
 import type {
+	CreateContactDto,
 	GetContactsDto,
 	UpdateContactsDto,
 } from '../dtos/contact-dtos.js';
 import type { IContact } from '../entities/contact-entity.js';
 
 export interface IContactCreatorRepository {
-	create: (contact: IContact) => Promise<IContact>;
+	create: (contact: CreateContactDto) => Promise<IContact>;
 }
 
 export interface IContactReaderRepository {

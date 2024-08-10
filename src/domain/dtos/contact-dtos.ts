@@ -15,10 +15,10 @@ export type DeleteContactsDto = {
 };
 
 export type UpdateContactsDto = {
-	name: string;
-	phone: string;
-	email?: string;
-	categoryId: UUID;
 	id: UUID;
+	name?: string;
+	phone?: string;
+	email?: string;
+	categoryId?: UUID;
 	updatedAt?: Date;
 };

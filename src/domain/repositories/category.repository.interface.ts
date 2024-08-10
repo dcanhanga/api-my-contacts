@@ -1,5 +1,6 @@
 import type { UUID } from 'node:crypto';
 import type {
+	CreateCategoryDto,
 	GetCategoriesDto,
 	ICategory,
 	UpdateCategoryDto,
@@ -10,7 +11,7 @@ export interface ICategoryUpdaterRepository {
 }
 
 export interface ICategoryCreatorRepository {
-	create: (category: ICategory) => Promise<ICategory>;
+	create: (category: CreateCategoryDto) => Promise<ICategory>;
 }
 
 export interface ICategoryReaderRepository {

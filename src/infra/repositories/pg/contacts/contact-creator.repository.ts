@@ -1,4 +1,8 @@
-import type { IContact, IContactCreatorRepository } from '@/domain/index.js';
+import type {
+	CreateContactDto,
+	IContact,
+	IContactCreatorRepository,
+} from '@/domain/index.js';
 import {
 	ContactDataMapper,
 	DatabaseHelper,
@@ -6,7 +10,7 @@ import {
 } from '@/infra/db/index.js';
 
 export class ContactCreatorRepositoryPG implements IContactCreatorRepository {
-	async create(input: IContact): Promise<IContact> {
+	async create(input: CreateContactDto): Promise<IContact> {
 		const dbEntity = ContactDataMapper.toDbEntity(input);
 		const dbRecord = await DatabaseHelper.query<IContactModel>(
 			`INSERT INTO contacts

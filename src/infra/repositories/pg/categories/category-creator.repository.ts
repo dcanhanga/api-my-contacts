@@ -10,7 +10,7 @@ import {
 } from '@/infra/db/index.js';
 
 export class CategoryCreatorRepositoryPG implements ICategoryCreatorRepository {
-	async create(input: ICategory): Promise<ICategory> {
+	async create(input: CreateCategoryDto): Promise<ICategory> {
 		const dbEntity = CategoryDataMapper.toDbEntity(input);
 		const dbRecord = await DatabaseHelper.query<ICategoryModel>(
 			`INSERT INTO categories (name, id, created_at, updated_at)

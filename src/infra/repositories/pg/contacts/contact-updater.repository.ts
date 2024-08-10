@@ -14,7 +14,12 @@ export class ContactUpdaterRepositoryPG implements IContactUpdaterRepository {
 		const dbEntity = ContactDataMapper.toDbEntity(input);
 
 		const dbRecord = await DatabaseHelper.query<IContactModel>(
-			`UPDATE contacts SET name = $1, category_id = $2, phone = $3, email = $4, updated_at = $5
+			`UPDATE contacts SET
+			name = COALESCE($1, name),
+			category_id = COALESCE($2, category_id),
+			phone = COALESCE($3, phone),
+			email = COALESCE($4, email),
+			updated_at = COALESCE($5, updated_at)
 			WHERE id = $6
 			RETURNING *`,
 			[

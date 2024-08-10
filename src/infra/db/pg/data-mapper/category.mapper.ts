@@ -10,7 +10,7 @@ export class CategoryDataMapper {
 			updatedAt: category.updated_at,
 		}));
 	}
-	static toDbEntity(categories: ICategory): ICategoryModel {
+	static toDbEntity(categories: Partial<ICategory>): Partial<ICategoryModel> {
 		return {
 			id: categories.id,
 			name: categories.name,

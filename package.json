@@ -9,6 +9,7 @@
 		"dev:docker": "npm run docker-up && npm run dev",
 		"migrate": "tsx --env-file .env -- scripts/run-migrate-sql.ts",
 		"drop": "tsx --env-file .env -- scripts/run-drop-sql.ts",
+		"biome": "biome check --write --no-errors-on-unmatched",
 		"prepare": "husky"
 	},
 	"type": "module",
