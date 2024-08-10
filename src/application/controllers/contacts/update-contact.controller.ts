@@ -4,15 +4,12 @@ import {
 	ApiResponse,
 	ApiSuccessResponse,
 	AppError,
-	type CreateCategoryDto,
 	DomainErrors,
 	type IApiResponse,
 	type ICategory,
 	type IContact,
 	type IController,
 	type IValidator,
-	type UpdateCategoryDto,
-	type UpdateCategoryUseCase,
 	type UpdateContactsDto,
 } from '../alias.js';
 

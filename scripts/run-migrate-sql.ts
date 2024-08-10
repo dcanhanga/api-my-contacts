@@ -28,6 +28,6 @@ async function executeSqlFile(filePath: string) {
 	}
 }
 
-const sqlFilePath = new URL('./../src/infra/db/schema.sql', import.meta.url);
-console.log(sqlFilePath.pathname.toString());
+const sqlFilePath = new URL('./../src/infra/db/migrate.sql', import.meta.url);
+
 executeSqlFile(sqlFilePath.pathname.toString());
