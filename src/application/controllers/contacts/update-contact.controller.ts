@@ -1,4 +1,3 @@
-import type { UpdateContactUseCase } from '@/domain/use-cases/contacts/update-contact.useCase.js';
 import {
 	ApiErrorResponses,
 	ApiResponse,
@@ -10,11 +9,12 @@ import {
 	type IContact,
 	type IController,
 	type IValidator,
+	type UpdateContactUseCase,
 	type UpdateContactsDto,
 } from '../alias.js';
 
 export class UpdateContactController
-	implements IController<UpdateContactsDto, IContact | undefined>
+	implements IController<UpdateContactsDto, IContact | null>
 {
 	constructor(
 		private readonly updateContactUseCase: UpdateContactUseCase,
@@ -22,7 +22,7 @@ export class UpdateContactController
 	) {}
 	async handle(
 		request: UpdateContactsDto,
-	): Promise<IApiResponse<IContact | undefined>> {
+	): Promise<IApiResponse<IContact | null>> {
 		try {
 			this.validator.validate(request);
 
@@ -38,7 +38,7 @@ export class UpdateContactController
 			return this.handleError(error as Error);
 		}
 	}
-	private handleError(error: Error): IApiResponse<undefined> {
+	private handleError(error: Error): IApiResponse<null> {
 		if (error instanceof DomainErrors.NotFoundError) {
 			return ApiResponse.error(
 				ApiErrorResponses.notFoundRequest({

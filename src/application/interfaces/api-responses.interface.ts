@@ -1,7 +1,6 @@
 import type { ErrorFields } from './error.interface.js';
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export interface IApiResponse<T = any> {
+export interface IApiResponse<T = null> {
 	statusCode: number;
 	body: {
 		message: string;

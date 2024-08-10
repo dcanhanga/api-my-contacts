@@ -13,7 +13,7 @@ import {
 } from '../alias.js';
 
 export class UpdateCategoryController
-	implements IController<UpdateCategoryDto, ICategory | undefined>
+	implements IController<UpdateCategoryDto, ICategory | null>
 {
 	constructor(
 		private readonly updateCategoryUseCase: UpdateCategoryUseCase,
@@ -21,7 +21,7 @@ export class UpdateCategoryController
 	) {}
 	async handle(
 		request: UpdateCategoryDto,
-	): Promise<IApiResponse<ICategory | undefined>> {
+	): Promise<IApiResponse<ICategory | null>> {
 		try {
 			this.validator.validate(request);
 
@@ -37,7 +37,7 @@ export class UpdateCategoryController
 			return this.handleError(error as Error);
 		}
 	}
-	private handleError(error: Error): IApiResponse<undefined> {
+	private handleError(error: Error): IApiResponse {
 		if (error instanceof DomainErrors.NotFoundError) {
 			return ApiResponse.error(
 				ApiErrorResponses.notFoundRequest({

@@ -13,7 +13,7 @@ import {
 } from '@/application/controllers/alias.js';
 
 export class CreateCategoryController
-	implements IController<CreateCategoryDto, ICategory | undefined>
+	implements IController<CreateCategoryDto, ICategory | null>
 {
 	constructor(
 		private readonly createCategoryUseCase: CreateCategoryUseCase,
@@ -21,7 +21,7 @@ export class CreateCategoryController
 	) {}
 	async handle(
 		request: CreateCategoryDto,
-	): Promise<IApiResponse<ICategory | undefined>> {
+	): Promise<IApiResponse<ICategory | null>> {
 		try {
 			this.validator.validate(request);
 			const category = await this.createCategoryUseCase.execute(request);
@@ -30,7 +30,7 @@ export class CreateCategoryController
 			return this.handleError(error as Error);
 		}
 	}
-	private handleError(error: Error): IApiResponse<undefined> {
+	private handleError(error: Error): IApiResponse {
 		if (error instanceof DomainErrors.AlreadyExistsError) {
 			return ApiResponse.error(
 				ApiErrorResponses.conflictRequest({

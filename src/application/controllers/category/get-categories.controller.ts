@@ -10,12 +10,12 @@ import {
 } from '@/application/controllers/alias.js';
 
 export class GetCategoriesController
-	implements IController<GetCategoriesDto, ICategory[] | undefined>
+	implements IController<GetCategoriesDto, ICategory[] | null>
 {
 	constructor(private readonly getCategoryUseCase: GetCategoriesUseCase) {}
 	async handle(
 		request: GetCategoriesDto,
-	): Promise<IApiResponse<ICategory[] | undefined>> {
+	): Promise<IApiResponse<ICategory[] | null>> {
 		try {
 			const categories = await this.getCategoryUseCase.execute(request);
 			return ApiResponse.success(ApiSuccessResponse.ok(categories));
