@@ -6,11 +6,12 @@ export class ContactDataMapper {
 		return dbRecord.map((data) => ({
 			id: data.id,
 			name: data.name,
-			categoryId: data.category_id,
 			phone: data.phone,
 			email: data.email,
 			createdAt: data.created_at,
 			updatedAt: data.updated_at,
+			categoryName: data.category_name,
+			categoryId: data.category_id,
 		}));
 	}
 	static toDbEntity(data: IContact): IContactModel {
@@ -19,9 +20,9 @@ export class ContactDataMapper {
 			name: data.name,
 			phone: data.phone,
 			email: data.email,
-			category_id: data.categoryId,
 			created_at: data.createdAt,
 			updated_at: data.updatedAt,
+			category_id: data.categoryId,
 		};
 	}
 }

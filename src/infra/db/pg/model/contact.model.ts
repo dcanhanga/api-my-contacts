@@ -5,7 +5,8 @@ export interface IContactModel {
 	name: string;
 	phone: string;
 	email?: string;
-	category_id: UUID;
 	created_at?: Date;
 	updated_at?: Date;
+	category_id: UUID;
+	category_name?: string;
 }

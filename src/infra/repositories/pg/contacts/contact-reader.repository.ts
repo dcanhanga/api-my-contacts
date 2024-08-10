@@ -21,19 +21,24 @@ export class ContactReaderRepositoryPG implements IContactReaderRepository {
 	}
 	async getAll(orderBy: GetContactsDto['orderBy']): Promise<IContact[]> {
 		const dbRecord = await DatabaseHelper.query<IContactModel>(
-			`SELECT * FROM contacts ORDER BY name ${orderBy}`,
+			`SELECT contacts.*, categories.name AS category_name
+			FROM contacts
+			LEFT JOIN categories ON categories.id = contacts.category_id
+			ORDER BY contacts.name ${orderBy}`,
 		);
 		const contact = ContactDataMapper.toEntity(dbRecord);
 		return contact;
 	}
 	async getById(id: UUID): Promise<IContact | undefined> {
 		const dbRecord = await DatabaseHelper.query<IContactModel>(
-			`SELECT * FROM contacts WHERE id = $1`,
+			`SELECT contacts.*, categories.name AS category_name
+				FROM contacts
+				LEFT JOIN categories ON categories.id = contacts.category_id
+				WHERE contacts.id = $1`,
 			[id],
 		);
 
 		const [contact] = ContactDataMapper.toEntity(dbRecord);
-
 		return contact;
 	}
 	async getByEmail(email: string): Promise<IContact> {
