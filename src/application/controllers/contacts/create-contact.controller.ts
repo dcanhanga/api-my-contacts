@@ -13,7 +13,7 @@ import {
 } from '@/application/controllers/alias.js';
 
 export class CreateContactController
-	implements IController<CreateContactDto, IContact | undefined>
+	implements IController<CreateContactDto, IContact | null>
 {
 	constructor(
 		private readonly validator: IValidator,
@@ -21,7 +21,7 @@ export class CreateContactController
 	) {}
 	async handle(
 		request: CreateContactDto,
-	): Promise<IApiResponse<IContact | undefined>> {
+	): Promise<IApiResponse<IContact | null>> {
 		try {
 			this.validator.validate(request);
 			const contact = await this.createContactUseCse.execute(request);
@@ -30,7 +30,7 @@ export class CreateContactController
 			return this.handleError(error as Error);
 		}
 	}
-	private handleError(error: Error): IApiResponse<undefined> {
+	private handleError(error: Error): IApiResponse {
 		if (error instanceof DomainErrors.NotFoundError) {
 			return ApiResponse.error(
 				ApiErrorResponses.notFoundRequest({
