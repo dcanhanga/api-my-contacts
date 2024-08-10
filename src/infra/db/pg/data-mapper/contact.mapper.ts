@@ -1,6 +1,5 @@
 import type { ICategory, IContact } from '@/domain/index.js';
 import type { IContactModel } from '../model/contact.model.js';
-import type { ICategoryModel } from '../model/index.js';
 
 export class ContactDataMapper {
 	static toEntity(dbRecord: IContactModel[]): IContact[] {

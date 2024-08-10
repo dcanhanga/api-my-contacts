@@ -1,31 +1,42 @@
+import type { UpdateContactUseCase } from '@/domain/use-cases/contacts/update-contact.useCase.js';
 import {
 	ApiErrorResponses,
 	ApiResponse,
 	ApiSuccessResponse,
 	AppError,
-	type CreateContactDto,
-	type CreateContactUseCase,
+	type CreateCategoryDto,
 	DomainErrors,
 	type IApiResponse,
+	type ICategory,
 	type IContact,
 	type IController,
 	type IValidator,
-} from '@/application/controllers/alias.js';
+	type UpdateCategoryDto,
+	type UpdateCategoryUseCase,
+	type UpdateContactsDto,
+} from '../alias.js';
 
-export class CreateContactController
-	implements IController<CreateContactDto, IContact | undefined>
+export class UpdateContactController
+	implements IController<UpdateContactsDto, IContact | undefined>
 {
 	constructor(
+		private readonly updateContactUseCase: UpdateContactUseCase,
 		private readonly validator: IValidator,
-		private readonly createContactUseCse: CreateContactUseCase,
 	) {}
 	async handle(
-		request: CreateContactDto,
+		request: UpdateContactsDto,
 	): Promise<IApiResponse<IContact | undefined>> {
 		try {
 			this.validator.validate(request);
-			const contact = await this.createContactUseCse.execute(request);
-			return ApiResponse.success(ApiSuccessResponse.created(contact));
+
+			const contact = await this.updateContactUseCase.execute(request);
+
+			return ApiResponse.success(
+				ApiSuccessResponse.ok(
+					contact,
+					`Contact ${request.name} updated successfully`,
+				),
+			);
 		} catch (error) {
 			return this.handleError(error as Error);
 		}

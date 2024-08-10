@@ -5,25 +5,20 @@ import type {
 	UpdateCategoryDto,
 } from '../index.js';
 
-export interface ICreateCategoryRepository {
-	create(category: ICategory): Promise<ICategory>;
-}
-export interface IGetCategoryByNameRepository {
-	get(name: string): Promise<ICategory | undefined>;
-}
-
-export interface IGetCategoriesRepository {
-	get(orderBy: GetCategoriesDto['orderBy']): Promise<ICategory[]>;
-}
-
-export interface IDeletedCategoryRepository {
-	delete(id: UUID): Promise<void>;
-}
-
-export interface IGetCategoryByIdRepository {
-	get(id: UUID): Promise<ICategory | undefined>;
-}
-
-export interface IUpdateCategoryRepository {
+export interface ICategoryUpdaterRepository {
 	update(category: UpdateCategoryDto): Promise<ICategory>;
+}
+
+export interface ICategoryCreatorRepository {
+	create: (category: ICategory) => Promise<ICategory>;
+}
+
+export interface ICategoryReaderRepository {
+	getByName: (name: string) => Promise<ICategory | undefined>;
+	getAll: (orderBy: GetCategoriesDto['orderBy']) => Promise<ICategory[]>;
+	getById: (id: UUID) => Promise<ICategory | undefined>;
+}
+
+export interface ICategoryDeleterRepository {
+	delete: (id: UUID) => Promise<void>;
 }

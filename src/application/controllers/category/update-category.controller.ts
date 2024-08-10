@@ -3,29 +3,36 @@ import {
 	ApiResponse,
 	ApiSuccessResponse,
 	AppError,
-	type CreateContactDto,
-	type CreateContactUseCase,
 	DomainErrors,
 	type IApiResponse,
-	type IContact,
+	type ICategory,
 	type IController,
 	type IValidator,
-} from '@/application/controllers/alias.js';
+	type UpdateCategoryDto,
+	type UpdateCategoryUseCase,
+} from '../alias.js';
 
-export class CreateContactController
-	implements IController<CreateContactDto, IContact | undefined>
+export class UpdateCategoryController
+	implements IController<UpdateCategoryDto, ICategory | undefined>
 {
 	constructor(
+		private readonly updateCategoryUseCase: UpdateCategoryUseCase,
 		private readonly validator: IValidator,
-		private readonly createContactUseCse: CreateContactUseCase,
 	) {}
 	async handle(
-		request: CreateContactDto,
-	): Promise<IApiResponse<IContact | undefined>> {
+		request: UpdateCategoryDto,
+	): Promise<IApiResponse<ICategory | undefined>> {
 		try {
 			this.validator.validate(request);
-			const contact = await this.createContactUseCse.execute(request);
-			return ApiResponse.success(ApiSuccessResponse.created(contact));
+
+			const category = await this.updateCategoryUseCase.execute(request);
+
+			return ApiResponse.success(
+				ApiSuccessResponse.ok(
+					category,
+					`Category ${request.name} updated successfully`,
+				),
+			);
 		} catch (error) {
 			return this.handleError(error as Error);
 		}

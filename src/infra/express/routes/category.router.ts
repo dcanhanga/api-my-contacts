@@ -13,12 +13,12 @@ export default (router: Router): void => {
 		expressAdapterRoute(categoryControllerFactory.create),
 	);
 
-	// router.delete(
-	// 	'/categories/:id',
-	// 	expressAdapterRoute(controllerFactory.deleteCategory),
-	// );
-	// router.put(
-	// 	'/categories/:id',
-	// 	expressAdapterRoute(controllerFactory.updateCategory),
-	// );
+	router.delete(
+		'/categories/:id',
+		expressAdapterRoute(categoryControllerFactory.delete),
+	);
+	router.put(
+		'/categories/:id',
+		expressAdapterRoute(categoryControllerFactory.update),
+	);
 };

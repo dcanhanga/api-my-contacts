@@ -1,36 +1,28 @@
 import {
-	CreateCategoryRepositoryPG,
-	DeleteCategoryRepositoryPG,
-	GetCategoriesRepositoryPG,
-	GetCategoryByIdRepositoryPG,
-	GetCategoryByNameRepositoryPG,
-	UpdateCategoryRepositoryPG,
+	CategoryCreatorRepositoryPG,
+	CategoryDeleterRepositoryPG,
+	CategoryReaderRepositoryPG,
+	CategoryUpdaterRepositoryPG,
 } from '@/infra/repositories/index.js';
 
-const getCategoriesRepositoryFactory = () => {
-	return new GetCategoriesRepositoryPG();
+const categoryCreatorRepositoryFactory = () => {
+	return new CategoryCreatorRepositoryPG();
 };
 
-const getCategoryByIdRepositoryFactory = () => {
-	return new GetCategoryByIdRepositoryPG();
+const categoryDeleterRepositoryFactory = () => {
+	return new CategoryDeleterRepositoryPG();
 };
-const getCategoryByNameRepositoryFactory = () => {
-	return new GetCategoryByNameRepositoryPG();
+const categoryReaderRepositoryFactory = () => {
+	return new CategoryReaderRepositoryPG();
 };
-const createCategoryRepositoryFactory = () => {
-	return new CreateCategoryRepositoryPG();
+
+const categoryUpdaterRepositoryFactory = () => {
+	return new CategoryUpdaterRepositoryPG();
 };
-const updateCategoryRepositoryFactory = () => {
-	return new UpdateCategoryRepositoryPG();
-};
-const deleteCategoryRepositoryFactory = () => {
-	return new DeleteCategoryRepositoryPG();
-};
+
 export const categoryRepositoryFactory = {
-	getAll: getCategoriesRepositoryFactory(),
-	getById: getCategoryByIdRepositoryFactory(),
-	getByName: getCategoryByNameRepositoryFactory(),
-	create: createCategoryRepositoryFactory(),
-	delete: deleteCategoryRepositoryFactory(),
-	update: updateCategoryRepositoryFactory(),
+	creator: categoryCreatorRepositoryFactory(),
+	deleter: categoryDeleterRepositoryFactory(),
+	reader: categoryReaderRepositoryFactory(),
+	updater: categoryUpdaterRepositoryFactory(),
 };

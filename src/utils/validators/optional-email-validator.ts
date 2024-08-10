@@ -3,10 +3,10 @@ import type {
 	ResponseValidator,
 } from '@/application/index.js';
 
-export class OPtionalEmailValidator implements IEmailValidator {
+export class OptionalEmailValidator implements IEmailValidator {
 	constructor(private readonly emailValidator: IEmailValidator) {}
 	isValid(email: unknown): ResponseValidator {
-		if (email === undefined || email === null || email === '') {
+		if (email === undefined || email === null) {
 			return {
 				isValid: true,
 			};

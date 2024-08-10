@@ -9,3 +9,16 @@ export type CreateContactDto = {
 export type GetContactsDto = {
 	orderBy: 'ASC' | 'DESC';
 };
+
+export type DeleteContactsDto = {
+	id: UUID;
+};
+
+export type UpdateContactsDto = {
+	name: string;
+	phone: string;
+	email?: string;
+	categoryId: UUID;
+	id: UUID;
+	updatedAt?: Date;
+};

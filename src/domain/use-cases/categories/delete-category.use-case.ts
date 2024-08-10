@@ -1,15 +1,13 @@
-import {
-	type DeleteCategoryDto,
-	DomainErrors,
-	type IDeletedCategoryRepository,
-	type IGetCategoryByIdRepository,
+import type {
+	DeleteCategoryDto,
+	ICategoryDeleterRepository,
 } from '@/domain/index.js';
 
 export class DeleteCategoryUseCase {
 	constructor(
-		private readonly deleCategoryRepository: IDeletedCategoryRepository,
+		private readonly categoryDeleterRepository: ICategoryDeleterRepository,
 	) {}
 	async execute(data: DeleteCategoryDto) {
-		return this.deleCategoryRepository.delete(data.id);
+		return this.categoryDeleterRepository.delete(data.id);
 	}
 }

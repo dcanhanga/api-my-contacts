@@ -1,15 +1,29 @@
 import {
-	CreateContactRepositoryPG,
-	GetContactsRepositoryPG,
+	ContactCreatorRepositoryPG,
+	ContactDeleterRepositoryPG,
+	ContactReaderRepositoryPG,
+	ContactUpdaterRepositoryPG,
 } from '@/infra/repositories/index.js';
 
-const createContactRepository = () => {
-	return new CreateContactRepositoryPG();
+const contactCreatorRepository = () => {
+	return new ContactCreatorRepositoryPG();
 };
-const getContactsRepository = () => {
-	return new GetContactsRepositoryPG();
+
+const contactReaderRepository = () => {
+	return new ContactReaderRepositoryPG();
 };
+
+const contactDeleterRepository = () => {
+	return new ContactDeleterRepositoryPG();
+};
+
+const contactUpdaterRepository = () => {
+	return new ContactUpdaterRepositoryPG();
+};
+
 export const contactRepositoryFactory = {
-	create: createContactRepository(),
-	getAll: getContactsRepository(),
+	creator: contactCreatorRepository(),
+	reader: contactReaderRepository(),
+	deleter: contactDeleterRepository(),
+	updater: contactUpdaterRepository(),
 };

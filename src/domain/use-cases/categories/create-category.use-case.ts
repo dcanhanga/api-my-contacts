@@ -3,23 +3,23 @@ import {
 	type CreateCategoryDto,
 	DomainErrors,
 	type ICategory,
-	type ICreateCategoryRepository,
-	type IGetCategoryByNameRepository,
-} from '../../index.js';
+	type ICategoryCreatorRepository,
+	type ICategoryReaderRepository,
+} from '@/domain/index.js';
 
 export class CreateCategoryUseCase {
 	constructor(
-		private readonly getCategoryByNameRepository: IGetCategoryByNameRepository,
-		private readonly createCategoryRepository: ICreateCategoryRepository,
+		private readonly categoryReaderRepository: ICategoryReaderRepository,
+		private readonly categoryCreatorRepository: ICategoryCreatorRepository,
 	) {}
 	async execute(data: CreateCategoryDto): Promise<ICategory> {
 		const normalizedInput = data.name.replace(/\s+/g, '').toLowerCase();
 		const existingCategory =
-			await this.getCategoryByNameRepository.get(normalizedInput);
+			await this.categoryReaderRepository.getByName(normalizedInput);
 		if (existingCategory) {
 			throw new DomainErrors.AlreadyExistsError('Category');
 		}
-		const category = await this.createCategoryRepository.create({
+		const category = await this.categoryCreatorRepository.create({
 			id: randomUUID(),
 			name: data.name,
 			createdAt: new Date(),

@@ -1,8 +1,8 @@
 import type {
-	ErrorFields,
 	IApiResponse,
 	IAppError,
 } from '@/application/interfaces/index.js';
+import { ErrorMessage } from '../controllers/alias.js';
 
 const badRequest = (error: IAppError): IApiResponse => {
 	return {
@@ -31,7 +31,7 @@ const notFoundRequest = (error: IAppError): IApiResponse => ({
 const serverError = (error: Error): IApiResponse => ({
 	statusCode: 500,
 	body: {
-		message: error.message,
+		message: ErrorMessage.SERVER_ERROR,
 	},
 });
 

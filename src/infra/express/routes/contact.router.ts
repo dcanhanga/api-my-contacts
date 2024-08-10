@@ -8,4 +8,12 @@ export default (router: Router): void => {
 		'/contacts',
 		expressAdapterRoute(contactControllerFactory.create),
 	);
+	router.delete(
+		'/contacts/:id',
+		expressAdapterRoute(contactControllerFactory.delete),
+	);
+	router.put(
+		'/contacts/:id',
+		expressAdapterRoute(contactControllerFactory.update),
+	);
 };

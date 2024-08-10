@@ -1,6 +1,6 @@
 import type {
 	ICategory,
-	IUpdateCategoryRepository,
+	ICategoryUpdaterRepository,
 	UpdateCategoryDto,
 } from '@/domain/index.js';
 import {
@@ -9,7 +9,7 @@ import {
 	type ICategoryModel,
 } from '@/infra/db/index.js';
 
-export class UpdateCategoryRepositoryPG implements IUpdateCategoryRepository {
+export class CategoryUpdaterRepositoryPG implements ICategoryUpdaterRepository {
 	async update(input: UpdateCategoryDto): Promise<ICategory> {
 		const dbEntity = CategoryDataMapper.toDbEntity(input);
 		const dbRecord = await DatabaseHelper.query<ICategoryModel>(
