@@ -4,6 +4,6 @@ import { setupRoutes } from './routes.js';
 export const setupExpress = async (): Promise<Express> => {
 	const app = express();
 	setupMiddlewares(app);
-	setupRoutes(app);
+	await setupRoutes(app);
 	return app;
 };
