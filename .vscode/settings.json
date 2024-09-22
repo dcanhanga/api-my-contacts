@@ -1,5 +1,5 @@
 {
-	"cSpell.words": ["dtos", "IUUID"],
+	"cSpell.words": ["dtos", "fastify", "Fastify", "IUUID"],
 	"editor.defaultFormatter": "biomejs.biome",
 	"editor.codeActionsOnSave": {
 		"source.organizeImports.biome": "explicit",

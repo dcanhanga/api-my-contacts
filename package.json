@@ -4,7 +4,7 @@
 	"description": "Api to store contacts",
 	"main": "src/index.js",
 	"scripts": {
-		"dev": "tsx --watch --env-file .env --inspect --no-warnings src/infra/server/index.ts",
+		"dev": "tsx --watch --env-file .env --inspect --no-warnings src/infra/server/server.ts",
 		"docker-up": "docker compose up -d",
 		"dev:docker": "npm run docker-up && npm run dev",
 		"migrate": "tsx --env-file .env -- scripts/run-migrate-sql.ts",
@@ -16,21 +16,23 @@
 	"keywords": [],
 	"author": "Domingos Canhanga",
 	"license": "ISC",
-
 	"dependencies": {
-		"express": "4.19.2",
-		"pg": "8.11.5"
+		"drizzle-orm": "^0.33.0",
+		"express": "^4.21.0",
+		"fastify": "^5.0.0",
+		"pg": "^8.13.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.8.1",
+		"@biomejs/biome": "1.9.2",
 		"@types/express": "4.17.21",
 		"@types/lint-staged": "13.3.0",
-		"@types/node": "20.12.12",
-		"@types/pg": "8.11.6",
+		"@types/node": "22.5.5",
+		"@types/pg": "^8.11.10",
+		"drizzle-kit": "^0.24.2",
 		"git-commit-msg-linter": "5.0.8",
-		"husky": "9.0.11",
-		"lint-staged": "15.2.7",
-		"tsx": "4.11.0",
-		"typescript": "5.4.5"
+		"husky": "9.1.6",
+		"lint-staged": "15.2.10",
+		"tsx": "4.19.1",
+		"typescript": "5.6.2"
 	}
 }

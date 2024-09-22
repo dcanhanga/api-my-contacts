@@ -15,4 +15,4 @@ async function startServer() {
 	}
 }
 
-startServer();
+void startServer();
