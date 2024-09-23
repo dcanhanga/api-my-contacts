@@ -10,7 +10,7 @@ import {
 export class CreateCategoryUseCase {
 	constructor(
 		private readonly categoryReaderRepository: ICategoryReaderRepository,
-		private readonly categoryCreatorRepository: ICategoryCreatorRepository,
+		private readonly categoryCreatorRepository: ICategoryCreatorRepository
 	) {}
 	async execute(data: CreateCategoryDto): Promise<ICategory> {
 		const normalizedInput = data.name.replace(/\s+/g, '').toLowerCase();
@@ -19,12 +19,7 @@ export class CreateCategoryUseCase {
 		if (existingCategory) {
 			throw new DomainErrors.AlreadyExistsError('Category');
 		}
-		const category = await this.categoryCreatorRepository.create({
-			id: randomUUID(),
-			name: data.name,
-			createdAt: new Date(),
-		});
-
+		const category = await this.categoryCreatorRepository.create(data);
 		return category;
 	}
 }

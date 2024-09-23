@@ -1,5 +1,5 @@
 import {
-	ApiErrorResponses,
+	ApiErrorResponse,
 	ApiResponse,
 	ApiSuccessResponse,
 	AppError,
@@ -17,10 +17,10 @@ export class CreateCategoryController
 {
 	constructor(
 		private readonly createCategoryUseCase: CreateCategoryUseCase,
-		private readonly validator: IValidator,
+		private readonly validator: IValidator
 	) {}
 	async handle(
-		request: CreateCategoryDto,
+		request: CreateCategoryDto
 	): Promise<IApiResponse<ICategory | null>> {
 		try {
 			this.validator.validate(request);
@@ -33,14 +33,14 @@ export class CreateCategoryController
 	private handleError(error: Error): IApiResponse {
 		if (error instanceof DomainErrors.AlreadyExistsError) {
 			return ApiResponse.error(
-				ApiErrorResponses.conflictRequest({
+				ApiErrorResponse.conflictRequest({
 					message: error.message,
-				}),
+				})
 			);
 		}
 		if (error instanceof AppError) {
-			return ApiResponse.error(ApiErrorResponses.badRequest(error));
+			return ApiResponse.error(ApiErrorResponse.badRequest(error));
 		}
-		return ApiResponse.error(ApiErrorResponses.serverError(error));
+		return ApiResponse.error(ApiErrorResponse.serverError(error));
 	}
 }

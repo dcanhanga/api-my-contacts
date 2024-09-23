@@ -1,26 +1,49 @@
+import type {
+	GetCategoriesDto,
+	GetCategoriesUseCase,
+	IApiResponse,
+	ICategory,
+	IController,
+} from '@/application/controllers/alias';
 import {
-	ApiErrorResponses,
-	ApiResponse,
-	ApiSuccessResponse,
-	type GetCategoriesDto,
-	type GetCategoriesUseCase,
-	type IApiResponse,
-	type ICategory,
-	type IController,
-} from '@/application/controllers/alias.js';
+	CategoryApiMapper,
+	type CategoryResponse,
+} from '@/application/mapper/category-api-mapper';
+import { BaseController } from '@/application/utils/base-controller';
 
 export class GetCategoriesController
-	implements IController<GetCategoriesDto, ICategory[] | null>
+	extends BaseController
+	implements
+		IController<GetCategoriesDto, GetCategoriesController.Response | null>
 {
-	constructor(private readonly getCategoryUseCase: GetCategoriesUseCase) {}
+	constructor(private readonly getCategoryUseCase: GetCategoriesUseCase) {
+		super();
+	}
 	async handle(
-		request: GetCategoriesDto,
-	): Promise<IApiResponse<ICategory[] | null>> {
+		request: GetCategoriesController.Request
+	): Promise<IApiResponse<GetCategoriesController.Response | null>> {
 		try {
 			const categories = await this.getCategoryUseCase.execute(request);
-			return ApiResponse.success(ApiSuccessResponse.ok(categories));
+			return this.okResponse(
+				this.formatResponse(categories),
+				'Categories retrieved successfully'
+			);
 		} catch (error) {
-			return ApiResponse.error(ApiErrorResponses.serverError(error as Error));
+			return this.serverErrorResponse(error as Error);
 		}
 	}
+	private formatResponse(categories: ICategory[]) {
+		return {
+			categories: categories.map(category =>
+				CategoryApiMapper.toResponse(category)
+			),
+		};
+	}
+}
+
+export namespace GetCategoriesController {
+	export type Response = {
+		categories: CategoryResponse[];
+	};
+	export type Request = GetCategoriesDto;
 }

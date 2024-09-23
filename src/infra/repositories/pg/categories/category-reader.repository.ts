@@ -14,7 +14,7 @@ export class CategoryReaderRepositoryPG implements ICategoryReaderRepository {
 	async getByName(name: string): Promise<ICategory | undefined> {
 		const dbRecord = await DatabaseHelper.query<ICategoryModel>(
 			`SELECT * FROM categories WHERE LOWER(REPLACE(name, ' ', '')) = $1`,
-			[name],
+			[name]
 		);
 		const [category] = CategoryDataMapper.toEntity(dbRecord);
 		return category;
@@ -23,7 +23,7 @@ export class CategoryReaderRepositoryPG implements ICategoryReaderRepository {
 	async getById(id: UUID): Promise<ICategory | undefined> {
 		const dbRecord = await DatabaseHelper.query<ICategoryModel>(
 			`SELECT * FROM categories WHERE id = $1`,
-			[id],
+			[id]
 		);
 
 		const [category] = CategoryDataMapper.toEntity(dbRecord);
@@ -33,7 +33,7 @@ export class CategoryReaderRepositoryPG implements ICategoryReaderRepository {
 
 	async getAll(orderBy: GetCategoriesDto['orderBy']): Promise<ICategory[]> {
 		const dbRecord = await DatabaseHelper.query<ICategoryModel>(
-			`SELECT * FROM categories ORDER BY name ${orderBy}`,
+			`SELECT * FROM categories ORDER BY name ${orderBy}`
 		);
 		const category = CategoryDataMapper.toEntity(dbRecord);
 		return category;

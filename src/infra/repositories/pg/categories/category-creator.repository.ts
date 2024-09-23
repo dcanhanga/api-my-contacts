@@ -15,7 +15,7 @@ export class CategoryCreatorRepositoryPG implements ICategoryCreatorRepository {
 		const dbRecord = await DatabaseHelper.query<ICategoryModel>(
 			`INSERT INTO categories (name, id, created_at, updated_at)
        VALUES ($1, $2, $3, $4) RETURNING *`,
-			[dbEntity.name, dbEntity.id, dbEntity.created_at, dbEntity.updated_at],
+			[dbEntity.name, dbEntity.id, dbEntity.created_at, dbEntity.updated_at]
 		);
 		const [category] = CategoryDataMapper.toEntity(dbRecord);
 		return category;

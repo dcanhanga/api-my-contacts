@@ -29,7 +29,7 @@ export class ContactUpdaterRepositoryPG implements IContactUpdaterRepository {
 				dbEntity.email,
 				dbEntity.updated_at,
 				dbEntity.id,
-			],
+			]
 		);
 		const [contact] = ContactDataMapper.toEntity(dbRecord);
 

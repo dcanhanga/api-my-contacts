@@ -1,4 +1,4 @@
-import type { IValidator } from '@/application/index.js';
+import type { IValidator } from '@/application';
 import {
 	EmailValidator,
 	NameValidator,
@@ -11,18 +11,15 @@ import {
 	StandardUUIDValidator,
 	UUIDValidator,
 	ValidatorComposite,
-} from '@/utils/index.js';
+} from '@/utils';
 
 const createContactValidator = (): ValidatorComposite => {
-	const REQUIRED_FIELDS = ['name', 'categoryId', 'phone'];
+	const REQUIRED_FIELDS = ['name', 'categoryId', 'phone', 'email'];
 	const validators: IValidator[] = [
 		new UUIDValidator('categoryId', new StandardUUIDValidator()),
 		new NameValidator('name', new StandardNameValidator()),
-		new EmailValidator(
-			'email',
-			new OptionalEmailValidator(new StandardEmailValidator()),
-		),
-		...REQUIRED_FIELDS.map((field) => new RequiredFieldValidator(field)),
+		new EmailValidator('email', new StandardEmailValidator()),
+		...REQUIRED_FIELDS.map(field => new RequiredFieldValidator(field)),
 	];
 	return new ValidatorComposite(validators);
 };
@@ -40,12 +37,12 @@ const updateContactValidator = (): ValidatorComposite => {
 	const optionalValidators: IValidator[] = [
 		new UUIDValidator(
 			'categoryId',
-			new OptionalUUIDValidator(standardUUIDValidator),
+			new OptionalUUIDValidator(standardUUIDValidator)
 		),
 		new NameValidator('name', new OptionalNameValidator(standardNameValidator)),
 		new EmailValidator(
 			'email',
-			new OptionalEmailValidator(standardEmailValidator),
+			new OptionalEmailValidator(standardEmailValidator)
 		),
 	];
 

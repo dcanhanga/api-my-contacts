@@ -28,14 +28,14 @@ const notFoundRequest = (error: IAppError): IApiResponse => ({
 	},
 });
 
-const serverError = (error: Error): IApiResponse => ({
+const serverError = (_error: Error): IApiResponse => ({
 	statusCode: 500,
 	body: {
 		message: ErrorMessage.SERVER_ERROR,
 	},
 });
 
-export const ApiErrorResponses = {
+export const ApiErrorResponse = {
 	conflictRequest,
 	badRequest,
 	serverError,

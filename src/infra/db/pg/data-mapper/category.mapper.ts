@@ -1,9 +1,9 @@
 import type { ICategory } from '@/domain/index.js';
-import type { ICategoryModel } from './../model/index.js';
+import type { ICategoryModel } from '../model/index.js';
 
 export class CategoryDataMapper {
 	static toEntity(dbRecord: ICategoryModel[]): ICategory[] {
-		return dbRecord.map((category) => ({
+		return dbRecord.map(category => ({
 			id: category.id,
 			name: category.name,
 			createdAt: category.created_at,

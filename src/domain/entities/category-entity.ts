@@ -4,5 +4,5 @@ export interface ICategory {
 	id: UUID;
 	name: string;
 	createdAt?: Date;
-	updatedAt?: Date;
+	updatedAt?: Date | null;
 }

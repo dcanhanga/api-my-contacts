@@ -6,7 +6,7 @@ export class ContactDeleterRepositoryPG implements IContactDeleterRepository {
 	async delete(id: UUID): Promise<void> {
 		await DatabaseHelper.query<ICategory>(
 			`DELETE FROM contacts WHERE id = $1`,
-			[id],
+			[id]
 		);
 	}
 }

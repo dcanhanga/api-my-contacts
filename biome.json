@@ -5,22 +5,34 @@
 	},
 	"linter": {
 		"enabled": true,
-
 		"rules": {
 			"recommended": true,
-			"complexity": { "noStaticOnlyClass": "off" },
 			"performance": {
 				"recommended": true
 			},
+			"complexity": { "noStaticOnlyClass": "off" },
 			"style": {
 				"noUnusedTemplateLiteral": "off"
+			},
+			"correctness": {
+				"noUnusedVariables": {
+					"level": "error",
+					"fix": "none"
+				}
 			}
 		}
 	},
 
 	"javascript": {
 		"formatter": {
-			"quoteStyle": "single"
+			"quoteStyle": "single",
+			"arrowParentheses": "asNeeded",
+			"jsxQuoteStyle": "double",
+			"semicolons": "always",
+			"trailingCommas": "es5"
 		}
+	},
+	"files": {
+		"ignore": ["build"]
 	}
 }

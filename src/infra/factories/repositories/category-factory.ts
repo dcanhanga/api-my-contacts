@@ -1,23 +1,23 @@
 import {
-	CategoryCreatorRepositoryPG,
-	CategoryDeleterRepositoryPG,
-	CategoryReaderRepositoryPG,
-	CategoryUpdaterRepositoryPG,
-} from '@/infra/repositories/index.js';
+	CategoryCreatorRepositoryDrizzle,
+	CategoryDeleterRepositoryDrizzle,
+	CategoryReaderRepositoryDrizzle,
+	CategoryUpdaterRepositoryDrizzle,
+} from '@/infra/repositories/drizzle/categories';
 
 const categoryCreatorRepositoryFactory = () => {
-	return new CategoryCreatorRepositoryPG();
+	return new CategoryCreatorRepositoryDrizzle();
 };
 
 const categoryDeleterRepositoryFactory = () => {
-	return new CategoryDeleterRepositoryPG();
+	return new CategoryDeleterRepositoryDrizzle();
 };
 const categoryReaderRepositoryFactory = () => {
-	return new CategoryReaderRepositoryPG();
+	return new CategoryReaderRepositoryDrizzle();
 };
 
 const categoryUpdaterRepositoryFactory = () => {
-	return new CategoryUpdaterRepositoryPG();
+	return new CategoryUpdaterRepositoryDrizzle();
 };
 
 export const categoryRepositoryFactory = {

@@ -25,7 +25,7 @@ export class ContactCreatorRepositoryPG implements IContactCreatorRepository {
 				dbEntity.email,
 				dbEntity.created_at,
 				dbEntity.updated_at,
-			],
+			]
 		);
 		const [contact] = ContactDataMapper.toEntity(dbRecord);
 		return contact;
